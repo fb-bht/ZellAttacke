@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Ellipse?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="920.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="225.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/cell_center.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="225.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/cell_circle.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="225.0" layoutY="695.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/virus_center.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="225.0" layoutY="695.0" pickOnBounds="true" preserveRatio="true" style="-fx-rotate: 200;">
+         <image>
+            <Image url="@img/virus_circle.png" />
+         </image>
+      </ImageView>
+      <Ellipse fill="#7aff1f" layoutX="275.0" layoutY="393.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+   </children>
+</Pane>
