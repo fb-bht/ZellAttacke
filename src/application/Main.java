@@ -59,11 +59,9 @@ public class Main extends Application {
 				virusColiderList.add(colider);
 			}
 
-			final long lastNanoTime = System.nanoTime();
 
 			new AnimationTimer() {
 				public void handle(long currentNanoTime) {
-					double t = (currentNanoTime - lastNanoTime) / 1000000000.0;
 
 					gc.clearRect(0, 0, 600, 920);
 
