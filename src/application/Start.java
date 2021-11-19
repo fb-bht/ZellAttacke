@@ -1,7 +1,6 @@
 package application;
 
 import java.io.IOException;
-import java.lang.ModuleLayer.Controller;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -25,7 +24,18 @@ public class Start extends Application {
 		Scene scene = new Scene(vbox);
 		stage.setTitle("CellAttack");
 		
-		//StartFXController startcont = new StartFXController();
+		StartFXController startcont = new StartFXController();
+		
+		Button newGame = new Button("Neues Spiel");
+		Button gamerules = new Button("Spielregeln");
+		
+		newGame.setOnAction(e -> {
+			startcont.openNewGame(e);    
+		});
+		
+		/*gamerules.setOnAction(e -> {
+			startcont.howToPlay();    
+		});*/
 		
 		stage.setScene(scene);
 		stage.show();
