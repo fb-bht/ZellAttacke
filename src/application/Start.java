@@ -1,7 +1,6 @@
 package application;
 
 import java.io.IOException;
-import java.lang.ModuleLayer.Controller;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -19,16 +18,17 @@ import javafx.stage.Stage;
 public class Start extends Application {
 
 	@Override
-	public void start(Stage stage) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("../img/startFX.fxml"));
-		VBox vbox = new VBox(root);
-		Scene scene = new Scene(vbox);
-		stage.setTitle("CellAttack");
-		
-		//StartFXController startcont = new StartFXController();
-		
-		stage.setScene(scene);
-		stage.show();
+	public void start(Stage stage) {
+		try {
+			final FXMLLoader loader = new FXMLLoader(getClass().getResource("../img/startFX.fxml"));
+	        final Parent root = (Parent) loader.load();
+	        Scene scene = new Scene(root);
+	        stage.setTitle("CellAttack");
+	        stage.setScene(scene);           
+	        stage.show();
+	    } catch(Exception e) {
+	    	e.printStackTrace();
+	    }
 	}
 		
 	/**
