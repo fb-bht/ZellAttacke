@@ -24,9 +24,9 @@ public class StartFXController {
 	private Parent root;
 	
 	@FXML 
-	Button newGame;
+	private Button newGame;
 	@FXML 
-	Button gamerules;   
+	private Button gamerules;   
 		
 	@FXML
 	protected void openNewGame(ActionEvent e) {
@@ -43,7 +43,16 @@ public class StartFXController {
 	}
 	
 	@FXML
-	public void howToPlay() {
-		//...
+	protected void howToPlay(ActionEvent e) {
+		try {
+			node = (Node) e.getSource();
+			stage = (Stage) node.getScene().getWindow();
+			scene = stage.getScene();
+			fxmlLoader = new FXMLLoader(getClass().getResource("../img/gamerulesFX.fxml"));
+			root = (Parent) fxmlLoader.load();
+			scene.setRoot(root);
+	    } catch (IOException e1) {
+	        e1.printStackTrace();
+	    }
 	}
 }
