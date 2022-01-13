@@ -10,12 +10,12 @@ import javafx.stage.Stage;
  * @author Stefanie S.
  *
  */
-public class AvatarChoice extends Application {
+public class GameRules extends Application {
 
 	@Override
 	public void start(Stage stage) {
 		try {
-			final FXMLLoader loader = new FXMLLoader(getClass().getResource("../img/avatarchoiceFX.fxml"));
+			final FXMLLoader loader = new FXMLLoader(getClass().getResource("../img/gamerulesFX.fxml"));
 	        final Parent root = (Parent) loader.load();
 	        Scene scene = new Scene(root);
 	        stage.setTitle("CellAttack");
