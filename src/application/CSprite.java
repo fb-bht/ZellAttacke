@@ -9,6 +9,8 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
+import org.jbox2d.dynamics.joints.DistanceJoint;
+import org.jbox2d.dynamics.joints.DistanceJointDef;
 
 /**
  * @author Fredi Benko 
@@ -16,6 +18,8 @@ import org.jbox2d.dynamics.World;
 public class CSprite {
 	World world;
 	Body body;
+	DistanceJoint djoint;
+	
 
 	Image image;
 	float radius;
@@ -64,6 +68,22 @@ public class CSprite {
 		float xPosRect = temp.x - this.radius/2;
 		float yPosRect = temp.y - this.radius/2;
 		return (new Vec2(xPosRect, yPosRect));
+	}
+	
+	// Creates a Joint between this Object and a provided anchor
+	public void addJoint(CSprite anchor) {
+		DistanceJointDef djd = new DistanceJointDef();
+		djd.bodyA = anchor.body;
+		djd.bodyB = this.body;
+		djd.length = Box2DUtils.scalarPixelsToWorld(50);
+		djd.frequencyHz = 0;
+	    djd.dampingRatio = 0;
+	    this.djoint = (DistanceJoint) this.world.createJoint(djd);
+	}
+	
+	// Removes a Joint
+	public void removeJoint() {
+		this.world.destroyJoint(this.djoint);
 	}
 
 }

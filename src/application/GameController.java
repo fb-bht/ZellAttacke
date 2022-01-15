@@ -5,9 +5,11 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
 
 import javafx.animation.AnimationTimer;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 /**
@@ -19,6 +21,8 @@ public class GameController {
 	public Canvas gameCanvas;
 //	public Pane gamePane;
 	public World world;
+	public CSprite orbiterP1;
+	public CSprite orbiterP2;
 
 	@FXML
 	public void initialize() {
@@ -34,18 +38,28 @@ public class GameController {
 		renderer.addWall(new Rect(599f, 100f, 10f, 500f, this.world)); // right
 		
 		// Players
-		renderer.addSprite(new CSprite(new Image(getClass().getResourceAsStream("../img/cell_center.png")), 300, 100, 100, this.world, BodyType.STATIC));
-		renderer.addSprite(new CSprite(new Image(getClass().getResourceAsStream("../img/virus_center.png")), 300, 600, 100, this.world, BodyType.STATIC));
+		CSprite player1 = new CSprite(new Image(getClass().getResourceAsStream("../img/cell_center.png")), 300, 100, 100, this.world, BodyType.STATIC);
+		renderer.addSprite(player1);
 		
-//		renderer.addWall(new Rect(250, 300, 100, 100, this.world));
-
+		CSprite player2 = new CSprite(new Image(getClass().getResourceAsStream("../img/virus_center.png")), 300, 600, 100, this.world, BodyType.STATIC);
+		renderer.addSprite(player2);
+		
+		// Orbiter
+		this.orbiterP1 = new CSprite(new Image(getClass().getResourceAsStream("../img/cell_center.png")), 300, 150, 20, this.world, BodyType.DYNAMIC);
+		orbiterP1.addJoint(player1);		
+		renderer.addSprite(orbiterP1);
+		
+		this.orbiterP2 = new CSprite(new Image(getClass().getResourceAsStream("../img/virus_center.png")), 300, 550, 20, this.world, BodyType.DYNAMIC);
+		orbiterP2.addJoint(player2);		
+		renderer.addSprite(orbiterP2);
+		
 		// Entities
-		for (int i = 0; i < 50; i++) {
-			renderer.addSprite(new CSprite(new Image(getClass().getResourceAsStream("../img/cell_center.png")), 250, 300, 20, this.world, BodyType.DYNAMIC));
-		}
-		for (int i = 0; i < 50; i++) {
-			renderer.addSprite(new CSprite(new Image(getClass().getResourceAsStream("../img/virus_center.png")), 350, 400, 20, this.world, BodyType.DYNAMIC));
-		}
+//		for (int i = 0; i < 50; i++) {
+//			renderer.addSprite(new CSprite(new Image(getClass().getResourceAsStream("../img/cell_center.png")), 250, 300, 20, this.world, BodyType.DYNAMIC));
+//		}
+//		for (int i = 0; i < 50; i++) {
+//			renderer.addSprite(new CSprite(new Image(getClass().getResourceAsStream("../img/virus_center.png")), 350, 400, 20, this.world, BodyType.DYNAMIC));
+//		}
 
 		// Game Loop
 		new AnimationTimer() {
@@ -53,8 +67,21 @@ public class GameController {
 				renderer.render();
 				world.step((1.0f / 60.0f), 6, 2);
 				world.clearForces();
+				update();
 			}
 		}.start();
+	}
+
+	// update after user interaction
+	protected void update() {
+		this.gameCanvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent e) {
+				orbiterP1.removeJoint();
+				orbiterP2.removeJoint();				
+			}});
+		
 	}
 
 }
