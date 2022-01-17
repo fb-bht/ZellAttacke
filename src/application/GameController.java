@@ -4,6 +4,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
 
+
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -54,12 +55,12 @@ public class GameController {
 		renderer.addSprite(orbiterP2);
 		
 		// Entities
-//		for (int i = 0; i < 50; i++) {
-//			renderer.addSprite(new CSprite(new Image(getClass().getResourceAsStream("../img/cell_center.png")), 250, 300, 20, this.world, BodyType.DYNAMIC));
-//		}
-//		for (int i = 0; i < 50; i++) {
-//			renderer.addSprite(new CSprite(new Image(getClass().getResourceAsStream("../img/virus_center.png")), 350, 400, 20, this.world, BodyType.DYNAMIC));
-//		}
+		for (int i = 0; i < 50; i++) {
+			renderer.addSprite(new CSprite(new Image(getClass().getResourceAsStream("../img/cell_center.png")), 280, 300, 20, this.world, BodyType.DYNAMIC));
+		}
+		for (int i = 0; i < 50; i++) {
+			renderer.addSprite(new CSprite(new Image(getClass().getResourceAsStream("../img/virus_center.png")), 320, 400, 20, this.world, BodyType.DYNAMIC));
+		}
 
 		// Game Loop
 		new AnimationTimer() {
@@ -80,8 +81,8 @@ public class GameController {
 			public void handle(MouseEvent e) {
 				orbiterP1.removeJoint();
 				orbiterP2.removeJoint();				
-			}});
-		
+			}});	
 	}
+	
 
 }

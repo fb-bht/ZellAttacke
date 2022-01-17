@@ -9,8 +9,8 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
-import org.jbox2d.dynamics.joints.DistanceJoint;
-import org.jbox2d.dynamics.joints.DistanceJointDef;
+import org.jbox2d.dynamics.joints.RevoluteJoint;
+import org.jbox2d.dynamics.joints.RevoluteJointDef;
 
 /**
  * @author Fredi Benko 
@@ -18,9 +18,7 @@ import org.jbox2d.dynamics.joints.DistanceJointDef;
 public class CSprite {
 	World world;
 	Body body;
-	DistanceJoint djoint;
-	
-
+	RevoluteJoint joint;
 	Image image;
 	float radius;
 
@@ -40,7 +38,7 @@ public class CSprite {
 		BodyDef bd = new BodyDef();
 		bd.type = bt;
 		bd.position.set(Box2DUtils.coordPixelsToWorld(center));
-		body = this.world.createBody(bd);
+		this.body = this.world.createBody(bd);
 		
 	    // Define a Fixture
 	    FixtureDef fd = new FixtureDef();
@@ -51,17 +49,14 @@ public class CSprite {
 	    fd.restitution = 0.5f;
 
 		// Attached the Shape to the Body using a Fixture
-		body.createFixture(fd);
-		
-	    // Initial random velocity
-	    body.setLinearVelocity(new Vec2((float)Math.random()*5, (float)Math.random()*5));
+		this.body.createFixture(fd);		
 	}
 	
 	// Returns Sprite Image
 	public Image getImage() {
 		return this.image;
 	}
-	
+		
 	// Returns the Position for Rendering (left upper corner)
 	public Vec2 getPos() {
 		Vec2 temp = Box2DUtils.getBodyPixelCoord(body);
@@ -72,18 +67,17 @@ public class CSprite {
 	
 	// Creates a Joint between this Object and a provided anchor
 	public void addJoint(CSprite anchor) {
-		DistanceJointDef djd = new DistanceJointDef();
-		djd.bodyA = anchor.body;
-		djd.bodyB = this.body;
-		djd.length = Box2DUtils.scalarPixelsToWorld(50);
-		djd.frequencyHz = 0;
-	    djd.dampingRatio = 0;
-	    this.djoint = (DistanceJoint) this.world.createJoint(djd);
+		RevoluteJointDef rjd = new RevoluteJointDef();
+		rjd.initialize(this.body, anchor.body, anchor.body.getWorldCenter());
+		rjd.motorSpeed = 2.0f;
+		rjd.maxMotorTorque = 1000.0f;
+		rjd.enableMotor = true; 
+		this.joint = (RevoluteJoint) this.world.createJoint(rjd);
 	}
 	
 	// Removes a Joint
 	public void removeJoint() {
-		this.world.destroyJoint(this.djoint);
+		this.world.destroyJoint(this.joint);
 	}
 
 }
