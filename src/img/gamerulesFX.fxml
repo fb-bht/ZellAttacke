@@ -41,7 +41,7 @@
                         <Insets left="20.0" />
                      </VBox.margin>
                   </Label>
-                  <Label layoutX="207.0" layoutY="202.0" text="Mit der Leertaste startet man einen Angriff." textFill="#e61610">
+                  <Label prefHeight="28.0" prefWidth="536.0" text="Mit den folgenden Tasten startet ihr einen Angriff: C für Zelle / V für Virus" textFill="#e61610">
                      <font>
                         <Font name="Comic Sans MS" size="14.0" />
                      </font>
