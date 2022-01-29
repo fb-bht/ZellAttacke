@@ -2,6 +2,7 @@ package model;
 
 import org.jbox2d.dynamics.BodyType;
 
+import model.Sprite;
 import application.Main;
 import model.GameObject;
 
@@ -26,7 +27,7 @@ public class Arena {
 	private Sprite player2;
 	public Sprite orbiterP1;
 	public Sprite orbiterP2;
-
+	
 	public static Box2dUtils box2d;
 
 	public Arena() {
@@ -62,7 +63,7 @@ public class Arena {
 		gameObjects.add(player2);
 		// Orbiter
 		createOrbiterP2();
-
+		
 	// Entities
 		for (int i = 0; i < 50; i++) {
 			GameObject neutral = new Sprite(new Image(getClass().getResourceAsStream("../img/neutral_center.png")),
@@ -76,10 +77,11 @@ public class Arena {
 	 * starts a Delay
 	 */
 	public void startCountDown() {
-		Thread clock = new CountDown();
-		clock.start();		
+		Thread clock = new CountDownThread();
+		clock.start();  
+		//orbiterP1.removeJoint();
+		//orbiterP2.removeJoint();
 	}
-
 
 	public void createOrbiterP1() {
 		orbiterP1 = new Sprite(new Image(getClass().getResourceAsStream("../img/cell_center.png")), 300, 150, 20);
