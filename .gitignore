@@ -7,3 +7,6 @@ bin/
 
 ### Java ###
 *.class
+
+### VSCode ###
+.vscode/
