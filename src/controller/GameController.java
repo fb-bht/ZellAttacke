@@ -1,11 +1,18 @@
 package controller;
 
+import java.io.IOException;
+
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
+import javafx.stage.Stage;
 import model.Arena;
 import view.Renderer;
 
@@ -13,6 +20,7 @@ import view.Renderer;
  * Controller Class for handling UserInput and connecting view and model
  * 
  * @author Fredi Benko
+ * @modified Stefanie S.
  */
 public class GameController {
 
@@ -21,6 +29,10 @@ public class GameController {
 	
 	// View
 	private Renderer view;
+	
+	private Stage stage;
+	private Scene scene;
+	private Parent root;
 
 	public GameController(Renderer view) {
 		this.view = view;
@@ -52,6 +64,8 @@ public class GameController {
 				handleInput();
 			}
 		}.start();
+		
+		
 	}
 
 	// handling user interaction
@@ -74,6 +88,29 @@ public class GameController {
 				}
 			}
 		});
+		
+		
 	}
 
+	// changing the scene to the highscore
+	private void showScore() {
+		Button btnScore = new Button();
+				
+		btnScore.setOnAction(e -> {
+			
+			try {
+				root = FXMLLoader.load(getClass().getResource("../view/scoreFx.fxml")); 
+				scene = new Scene(root);
+
+				stage.setScene(scene);
+				stage.setTitle("Highscore");
+				stage.show();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+	       
+		});
+	}
 }

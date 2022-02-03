@@ -3,9 +3,12 @@ package view;
 import java.util.ArrayList;
 
 import application.Main;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -17,6 +20,7 @@ import model.Sprite;
  * Render Class represents the View in MVC
  * 
  * @author Fredi Benko
+ * @modified Stefanie S.
  */
 public class Renderer {
 
@@ -27,6 +31,7 @@ public class Renderer {
 	ArrayList<GameObject> viewList = new ArrayList<GameObject>();
 	Label ScoreTextPlayer1 = new Label("0");
 	Label ScoreTextPlayer2 = new Label("0");
+	Button showScore = new Button("Highscore");
 
 	public Renderer() {
 		pane = createView();
@@ -50,8 +55,9 @@ public class Renderer {
 		canvas = new Canvas(Main.WIDTH, Main.HEIGHT);
 		
 		Label p1 = new Label("Player 1: "); 
-        HBox InfoBoxP1 = new HBox(); 
-        InfoBoxP1.getChildren().addAll(p1, ScoreTextPlayer1); 
+		HBox InfoBoxP1 = new HBox(); 
+		HBox.setMargin(showScore, new Insets(0, 0, 0, 473));
+        InfoBoxP1.getChildren().addAll(p1, ScoreTextPlayer1, showScore); 
         AnchorPane.setTopAnchor(InfoBoxP1, 10.0);
         
 		Label p2 = new Label("Player 2: "); 
