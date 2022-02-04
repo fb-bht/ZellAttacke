@@ -8,5 +8,7 @@ bin/
 ### Java ###
 *.class
 
+
 ### VSCode ###
 .vscode/
+target/
