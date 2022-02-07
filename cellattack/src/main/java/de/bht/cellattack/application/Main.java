@@ -18,6 +18,7 @@ public class Main extends Application {
 	
 	public final static int WIDTH = 600;
 	public final static int HEIGHT = 700;
+	public final static String SERVER_URL = "http://localhost:8080";
 
 	@Override
 	public void start(Stage stage) throws IOException {
