@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
@@ -40,6 +41,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private TextField email;
+
 
     @FXML
     private TextField password;
@@ -130,12 +132,14 @@ public class LoginController implements Initializable {
         } else if (password.getText().length() < 5 || password.getText().length() > 20) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
                     "Passwort muss zwischen 5 und 20 Zeichen lang sein.");
+
             password.requestFocus();
         } else {
             return true;
         }
         return false;
     }
+
 
 
     /*
@@ -155,4 +159,6 @@ public class LoginController implements Initializable {
         stage.show();
     }
 
+
 }
+
