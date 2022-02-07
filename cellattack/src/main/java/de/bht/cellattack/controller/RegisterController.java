@@ -1,10 +1,16 @@
 package de.bht.cellattack.controller;
 
+
+import de.bht.cellattack.application.Main;
 import de.bht.cellattack.helper.AlertHelper;
+import de.bht.cellattack.helper.Validator;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,18 +22,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
-import kong.unirest.UnirestException;
+import kong.unirest.json.JSONException;
 import kong.unirest.json.JSONObject;
+
 
 /**
  * Register Class
+ * to register a new user at the backend-server
+ * 
  * @author Fredi Benko
  */
 public class RegisterController implements Initializable {
-
 
     @FXML
     private TextField email;
@@ -48,96 +57,92 @@ public class RegisterController implements Initializable {
     public RegisterController() {
     }
 
+
+    /*
+     * Method register() makes a HTTP-request to register a new user
+     */
     @FXML
-    private void register() {
+    private void register() throws InterruptedException, JSONException, ExecutionException {
         window = registerButton.getScene().getWindow();
+        if (this.isValidated()) {
 
-        // String host = "localhost";
-        // String port = "8080";
+            CompletableFuture<HttpResponse<JsonNode>> reqResponse = Unirest.post(MessageFormat.format("{0}/signup", Main.SERVER_URL))
+                    .header("accept", "application/json")
+                    .header("content-type", "application/json")
+                    .body(new JSONObject()
+                            .put("password", password.getText())
+                            .put("email", email.getText())
+                            .toString())
+                    .asJsonAsync();
 
-        // try {
-        // String authToken = Unirest.post(MessageFormat.format("http://{0}:{1}/signup",
-        // host, port))
+            if (reqResponse.get().getBody().getObject().getBoolean("success")) {
+                this.clearForm();
+                System.out.println("Registrierung erfolgreich abgeschlossen.");
+                AlertHelper.showAlert(Alert.AlertType.INFORMATION, window, "Information",
+                        "Registrierung erfolgreich abgeschlossen.");
+            } else if (!reqResponse.get().getBody().getObject().getBoolean("success")
+                    || reqResponse.get().getBody().getObject().getString("message")
+                            .equals("Email Address already in use!")) {
+                System.out.println("Der Benutzername ist bereits vergeben");
+                AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
+                        "Der Benutzername ist bereits vergeben.");
+            } else {
+                System.out.println("Es ist ein Fehler beim registrieren aufgetreten");
+                AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
+                        "Es ist ein Fehler beim registrieren aufgetreten.");
+            }
 
-        String authToken = Unirest.post("localhost:8080/signup")
-                .header("accept", "application/json")
-                .header("content-type", "application/json")
-                .body(new JSONObject()
-                        .put("password", "kennword")
-                        .put("email", "usereId@test.de")
-                        .toString())
-                .asJson()
-                .getBody().getObject().getString("token");
-
-        // HttpResponse<JsonNode> apiResponse =
-        // Unirest.post("http://localhost:8080/signup")
-        // .header("accept", "application/json")
-        // .header("Content-Type", "application/json")
-        // .field("password", "meinpasswort")
-        // .field("email", "Gary@test.de")
-        // .asJson();//.getBody().getArray()
-        // .getBody().getObject().getString("token");
-
-        // } catch (UnirestException e) {
-        // e.printStackTrace();
-        // }
-        // return null;
-
-        if (true) {
-            AlertHelper.showAlert(Alert.AlertType.INFORMATION, window, "Information",
-                    "You have registered successfully.");
         } else {
+            System.out.println("Es ist ein Fehler beim registrieren aufgetreten");
             AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
-                    "Something went wrong.");
+                    "Es ist ein Fehler bei der Eingabe aufgetreten.");
         }
+
     }
 
-    private boolean isAlreadyRegistered() {
-        boolean usernameExist = false;
 
-        // try {
-        // usernameExist = true;
-        // } catch (UnirestException e) {
-        // System.out.println(e);
-        // }
-        return usernameExist;
-    }
-
+    /*
+     * method isValidated() checks if the user input ist valid 
+     */
     private boolean isValidated() {
 
         window = registerButton.getScene().getWindow();
         if (email.getText().equals("")) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
-                    "Email text field cannot be blank.");
+                    "Email Textfeld kann nicht leer sein.");
             email.requestFocus();
-        } else if (email.getText().length() < 5 || email.getText().length() > 45) {
+        } else if (!Validator.isValidEmail(email.getText())) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
-                    "Email text field cannot be less than 5 and greator than 45 characters.");
+                    "Eingabe im Email Textfeld ist keine valide E-Mail.");
             email.requestFocus();
         } else if (password.getText().equals("")) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
-                    "Password text field cannot be blank.");
+                    "Passwort Textfeld kann nicht leer sein.");
             password.requestFocus();
-        } else if (password.getText().length() < 5 || password.getText().length() > 25) {
+        } else if (password.getText().length() < 5 || password.getText().length() > 20) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
-                    "Password text field cannot be less than 5 and greator than 25 characters.");
+                    "Passwort muss zwischen 5 und 20 Zeichen lang sein.");
             password.requestFocus();
-        } else if (isAlreadyRegistered()) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
-                    "The username is already taken by someone else.");
-            email.requestFocus();
         } else {
             return true;
         }
         return false;
     }
 
+
+    /*
+     * Method clears form input
+     */
     private boolean clearForm() {
         email.clear();
         password.clear();
         return true;
     }
 
+
+    /*
+     * Method changes the displayed form from register to login
+     */
     @FXML
     private void showLoginStage() throws IOException {
         Stage stage = (Stage) registerButton.getScene().getWindow();
@@ -151,4 +156,6 @@ public class RegisterController implements Initializable {
         stage.setTitle("User Login");
         stage.show();
     }
+    
 }
+
