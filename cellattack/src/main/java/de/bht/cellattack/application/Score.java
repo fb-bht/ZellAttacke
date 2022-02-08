@@ -1,4 +1,4 @@
-package de.bht.cellattack;
+package de.bht.cellattack.application;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,15 +7,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
+ * Scene of the highscore
+ * 
  * @author Stefanie S.
  *
  */
-public class Start extends Application {
+public class Score extends Application {
 
 	@Override
 	public void start(Stage stage) {
 		try {
-			final FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/startbgFX.fxml"));
+			final FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/scoreFX.fxml"));
 	        final Parent root = (Parent) loader.load();
 	        Scene scene = new Scene(root);
 	        stage.setTitle("CellAttack");
@@ -24,12 +26,5 @@ public class Start extends Application {
 	    } catch(Exception e) {
 	    	e.printStackTrace();
 	    }
-	}
-	
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		launch(args);
 	}
 }
