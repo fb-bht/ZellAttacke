@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -19,10 +18,9 @@
             <Image url="@../img/immunsystem.jpg" />
          </image>
       </ImageView>
-      <Pane layoutX="20.0" layoutY="20.0" opacity="0.5" prefHeight="360.0" prefWidth="560.0" style="-fx-background-color: #ffa5a0;" />
       <AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="360.0" prefWidth="560.0">
          <children>
-            <BorderPane layoutX="5.0" layoutY="10.0" prefHeight="340.0" prefWidth="550.0" style="-fx-background-color: #ffb3b0;">
+            <BorderPane prefHeight="360.0" prefWidth="560.0" style="-fx-background-color: #ffb3b0;">
                <top>
                   <HBox alignment="CENTER" prefHeight="38.0" prefWidth="556.0" BorderPane.alignment="CENTER">
                      <children>

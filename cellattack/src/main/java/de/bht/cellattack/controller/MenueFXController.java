@@ -12,12 +12,12 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * Controller for highscore scene
+ * Controller for function scene
  * 
  * @author Stefanie S.
  *
  */
-public class ScoreFXController {
+public class MenueFXController {
 
 	private Node node;
 	private Stage stage;
@@ -26,10 +26,14 @@ public class ScoreFXController {
 	private Parent root;
 	
 	@FXML 
-	private Button btnOneMoreGame;
-
+	private Button btnNewGame;
+	@FXML 
+	private Button btnGamerules;
+	@FXML 
+	private Button btnScore;
+		
 	@FXML
-	protected void goToAvatarChoice(ActionEvent e) {
+	protected void openNewGame(ActionEvent e) {
 		try {
 			node = (Node) e.getSource();
 			stage = (Stage) node.getScene().getWindow();
@@ -43,16 +47,30 @@ public class ScoreFXController {
 	}
 	
 	@FXML
-	protected void goBackToStart(ActionEvent e) {
+	protected void howToPlay(ActionEvent e) {
 		try {
 			node = (Node) e.getSource();
 			stage = (Stage) node.getScene().getWindow();
 			scene = stage.getScene();
-			fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/menueFX.fxml"));
+			fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/gamerulesFX.fxml"));
 			root = (Parent) fxmlLoader.load();
 			scene.setRoot(root);
 	    } catch (IOException e1) {
 	        e1.printStackTrace();
-	    }         
+	    }
+	}
+	
+	@FXML
+	protected void openScore(ActionEvent e) {
+		try {
+			node = (Node) e.getSource();
+			stage = (Stage) node.getScene().getWindow();
+			scene = stage.getScene();
+			fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/scoreFX.fxml"));
+			root = (Parent) fxmlLoader.load();
+			scene.setRoot(root);
+	    } catch (IOException e1) {
+	        e1.printStackTrace();
+	    }
 	}
 }
