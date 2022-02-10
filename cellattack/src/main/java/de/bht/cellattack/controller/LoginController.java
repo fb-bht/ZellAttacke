@@ -79,7 +79,8 @@ public class LoginController {
                 Stage stage = (Stage) loginButton.getScene().getWindow();
                 stage.close();
 
-                Parent root = FXMLLoader.load(getClass().getResource("/fxml/DashboardView.fxml"));
+                //Parent root = FXMLLoader.load(getClass().getResource("/fxml/DashboardView.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/fxml/avatarchoiceFX.fxml"));
 
                 Scene scene = new Scene(root);
 

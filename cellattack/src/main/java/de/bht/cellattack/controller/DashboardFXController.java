@@ -5,6 +5,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -32,11 +35,12 @@ import de.bht.cellattack.model.dto.UserApiResponse;
  */
 public class DashboardFXController implements Initializable {
 
-    @FXML private Button logoutButton;
-
-    @FXML private TableView<Score> table;
-    @FXML private TableColumn<Score, Integer> columnOne;
-    @FXML private TableColumn<Score, String> columnTwo;
+    @FXML
+    private Button logoutButton;
+    @FXML
+    private Button btnVirus;
+    @FXML
+    private Button btnCell; 
 
     Window window;
 
@@ -64,6 +68,7 @@ public class DashboardFXController implements Initializable {
         System.out.println("Logout erfolgreich");
         AlertHelper.showAlert(Alert.AlertType.INFORMATION, window, "Information", "Logout erfolgreich");
         // logout am Server
+
 
         showLoginStage();
     }
