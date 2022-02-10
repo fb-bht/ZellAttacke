@@ -1,15 +1,11 @@
 package de.bht.cellattack.controller;
 
 import java.io.IOException;
-import java.net.URL;
 import java.text.MessageFormat;
-import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -21,9 +17,9 @@ import javafx.stage.Window;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
+
 import kong.unirest.json.JSONObject;
 import de.bht.cellattack.application.Main;
-import de.bht.cellattack.application.MainPanel;
 import de.bht.cellattack.helper.AlertHelper;
 import de.bht.cellattack.helper.Validator;
 
@@ -34,10 +30,10 @@ import de.bht.cellattack.helper.Validator;
  * 
  * @author Fredi Benko
  */
-public class LoginController implements Initializable {
+public class LoginController {
 
     // for Development - delete later !!!!!
-    static String token;
+    public static String token;
 
     @FXML
     private TextField email;
@@ -50,11 +46,6 @@ public class LoginController implements Initializable {
     private Button loginButton;
 
     Window window;
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {}
-
-    public LoginController() {}
 
 
     /*
@@ -125,6 +116,10 @@ public class LoginController implements Initializable {
         } else if (!Validator.isValidEmail(email.getText())) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
                     "Eingabe im Email Textfeld ist keine valide E-Mail.");
+            email.requestFocus();
+        } else if (email.getText().length() > 40) {
+            AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
+                    "Email kann maximal 40 Zeichen lang sein.");
             email.requestFocus();
         } else if (password.getText().equals("")) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
