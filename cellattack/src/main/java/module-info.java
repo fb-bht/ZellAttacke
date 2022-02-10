@@ -19,6 +19,7 @@ module cellattack {
     // needed for JavaFx
     opens de.bht.cellattack.controller to javafx.fxml;
     opens de.bht.cellattack.application to javafx.graphics;
+    opens de.bht.cellattack.model.dto to javafx.base;
 
     exports de.bht.cellattack;
 }

@@ -61,7 +61,7 @@ public class RegisterController implements Initializable {
      * Method register() makes a HTTP-request to register a new user
      */
     @FXML
-    private void register() throws InterruptedException, JSONException, ExecutionException {
+    private void register() throws InterruptedException, JSONException, ExecutionException, IOException {
         window = registerButton.getScene().getWindow();
         if (this.isValidated()) {
 
@@ -79,6 +79,7 @@ public class RegisterController implements Initializable {
                 System.out.println("Registrierung erfolgreich abgeschlossen.");
                 AlertHelper.showAlert(Alert.AlertType.INFORMATION, window, "Information",
                         "Registrierung erfolgreich abgeschlossen.");
+                this.showLoginStage();
             } else if (!reqResponse.get().getBody().getObject().getBoolean("success")
                     || reqResponse.get().getBody().getObject().getString("message")
                             .equals("Email Address already in use!")) {
@@ -113,6 +114,10 @@ public class RegisterController implements Initializable {
         } else if (!Validator.isValidEmail(email.getText())) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
                     "Eingabe im Email Textfeld ist keine valide E-Mail.");
+            email.requestFocus();
+        } else if (email.getText().length() > 40) {
+            AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
+                    "Email kann maximal 40 Zeichen lang sein.");
             email.requestFocus();
         } else if (password.getText().equals("")) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
