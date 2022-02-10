@@ -38,6 +38,7 @@ public class LoginController {
     @FXML
     private TextField email;
 
+
     @FXML
     private TextField password;
 
@@ -126,12 +127,14 @@ public class LoginController {
         } else if (password.getText().length() < 5 || password.getText().length() > 20) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
                     "Passwort muss zwischen 5 und 20 Zeichen lang sein.");
+
             password.requestFocus();
         } else {
             return true;
         }
         return false;
     }
+
 
 
     /*
@@ -151,4 +154,6 @@ public class LoginController {
         stage.show();
     }
 
+
 }
+

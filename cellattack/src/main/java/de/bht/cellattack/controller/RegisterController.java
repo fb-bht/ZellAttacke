@@ -1,5 +1,6 @@
 package de.bht.cellattack.controller;
 
+
 import de.bht.cellattack.application.Main;
 import de.bht.cellattack.helper.AlertHelper;
 import de.bht.cellattack.helper.Validator;
@@ -162,3 +163,4 @@ public class RegisterController implements Initializable {
     }
     
 }
+
