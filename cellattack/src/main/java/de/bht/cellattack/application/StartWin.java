@@ -1,4 +1,4 @@
-package de.bht.cellattack;
+package de.bht.cellattack.application;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,12 +10,12 @@ import javafx.stage.Stage;
  * @author Stefanie S.
  *
  */
-public class Start extends Application {
+public class StartWin extends Application {
 
 	@Override
 	public void start(Stage stage) {
 		try {
-			final FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/startFX.fxml"));
+			final FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/startwinFX.fxml"));
 	        final Parent root = (Parent) loader.load();
 	        Scene scene = new Scene(root);
 	        stage.setTitle("CellAttack");
@@ -24,12 +24,5 @@ public class Start extends Application {
 	    } catch(Exception e) {
 	    	e.printStackTrace();
 	    }
-	}
-	
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		launch(args);
 	}
 }

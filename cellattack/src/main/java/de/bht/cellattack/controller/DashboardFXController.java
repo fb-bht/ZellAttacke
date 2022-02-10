@@ -8,6 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,7 +38,11 @@ public class DashboardFXController implements Initializable {
 
     @FXML
     private Button logoutButton;
-
+    @FXML
+    private Button btnVirus;
+    @FXML
+    private Button btnCell;
+ 
     Window window;
 
     @Override
@@ -70,7 +75,7 @@ public class DashboardFXController implements Initializable {
         System.out.println("Logout erfolgreich");
         AlertHelper.showAlert(Alert.AlertType.INFORMATION, window, "Information", "Logout erfolgreich");
         // logout am Server
-        // showLoginStage();
+        showLoginStage();
     }
 
     /*
