@@ -42,6 +42,10 @@ public class DashboardFXController implements Initializable {
     @FXML
     private Button btnCell; 
 
+    @FXML private TableView<Score> table;
+    @FXML private TableColumn<Score, Integer> columnOne;
+    @FXML private TableColumn<Score, String> columnTwo;
+    
     Window window;
 
 

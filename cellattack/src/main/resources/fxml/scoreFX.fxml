@@ -34,19 +34,6 @@
                      </children>
                   </HBox>
                </top>
-               <center>
-                  <VBox alignment="CENTER" prefHeight="360.0" prefWidth="560.0" spacing="20.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <TableView prefHeight="200.0" prefWidth="200.0">
-                           <columns>
-                              <TableColumn fx:id="columnNick1" prefWidth="187.0" text="Score" />
-                              <TableColumn fx:id="columnNick" prefWidth="187.0" text="Date" />
-                              <TableColumn fx:id="columnScore" prefWidth="187.0" text="User-Email" />
-                           </columns>
-                        </TableView>
-                     </children>
-                  </VBox>
-               </center>
                <bottom>
                   <HBox alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="556.0" spacing="10.0" BorderPane.alignment="CENTER">
                      <children>
@@ -72,6 +59,18 @@
                      </BorderPane.margin>
                   </HBox>
                </bottom>
+               <center>
+                  <VBox alignment="CENTER" prefHeight="195.0" prefWidth="560.0" spacing="20.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0">
+                           <columns>
+                              <TableColumn fx:id="columnOne" prefWidth="284.0" text="Punkte" />
+                              <TableColumn fx:id="columnTwo" prefWidth="284.0" text="Datum" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </center>
             </BorderPane>
          </children>
       </AnchorPane>
