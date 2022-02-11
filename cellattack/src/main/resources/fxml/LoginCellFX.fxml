@@ -8,13 +8,12 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.bht.cellattack.controller.AvatarChoiceFXController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.bht.cellattack.controller.LoginCellFXController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -24,17 +23,6 @@
       <AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="360.0" prefWidth="560.0">
          <children>
             <BorderPane prefHeight="360.0" prefWidth="560.0" style="-fx-background-color: #ffb3b0;">
-               <top>
-                  <HBox alignment="CENTER" prefHeight="39.0" prefWidth="556.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Label opacity="0.91" text="Bitte wähle Deinen Avatar:" textFill="#e61610">
-                           <font>
-                              <Font name="Comic Sans MS" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-               </top>
                <center>
                   <VBox alignment="CENTER" prefHeight="360.0" prefWidth="560.0" spacing="20.0" BorderPane.alignment="CENTER">
                      <children>
@@ -59,26 +47,16 @@
                                     <Font name="Comic Sans MS" size="18.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="btnCell" alignment="CENTER" mnemonicParsing="false" onAction="#chooseCell" prefHeight="278.0" prefWidth="303.0" style="-fx-background-color: #ffb3b0;" GridPane.rowIndex="2">
-                                 <graphic>
-                                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                                       <children>
-                                          <ImageView fitHeight="278.0" fitWidth="261.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../img/cell_circle.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fitHeight="238.0" fitWidth="239.0" layoutX="12.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../img/cell_center.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Circle fill="#45bce5" layoutX="219.0" layoutY="234.0" radius="18.0" stroke="#45bce5" strokeType="INSIDE" strokeWidth="0.0" />
-                                       </children>
-                                    </AnchorPane>
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="btnVirus" mnemonicParsing="false" onAction="#chooseVirus" prefHeight="278.0" prefWidth="300.0" style="-fx-background-color: #ffb3b0;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="186.0" spacing="20.0" GridPane.rowIndex="2">
+                                 <children>
+                                    <Button fx:id="btnLoginCell" mnemonicParsing="false" onAction="#openLoginCell" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #ffa5a0; -fx-border-color: #ff8a84; -fx-border-width: 2px;" text="Login" textFill="#e61610">
+                                       <font>
+                                          <Font name="Comic Sans MS" size="18.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                              <Button fx:id="btnVirus" mnemonicParsing="false" prefHeight="278.0" prefWidth="300.0" style="-fx-background-color: #ffb3b0;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <graphic>
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                        <children>

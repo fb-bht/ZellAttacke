@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.bht.cellattack.controller.AvatarChoiceFXController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.bht.cellattack.controller.LoginVirusFXController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -27,7 +27,7 @@
                <top>
                   <HBox alignment="CENTER" prefHeight="39.0" prefWidth="556.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label opacity="0.91" text="Bitte wähle Deinen Avatar:" textFill="#e61610">
+                        <Label opacity="0.91" text="Dashboard" textFill="#e61610">
                            <font>
                               <Font name="Comic Sans MS" size="18.0" />
                            </font>
@@ -59,7 +59,7 @@
                                     <Font name="Comic Sans MS" size="18.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="btnCell" alignment="CENTER" mnemonicParsing="false" onAction="#chooseCell" prefHeight="278.0" prefWidth="303.0" style="-fx-background-color: #ffb3b0;" GridPane.rowIndex="2">
+                              <Button fx:id="btnCell" alignment="CENTER" mnemonicParsing="false" prefHeight="278.0" prefWidth="303.0" style="-fx-background-color: #ffb3b0;" GridPane.rowIndex="2">
                                  <graphic>
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                        <children>
@@ -78,25 +78,15 @@
                                     </AnchorPane>
                                  </graphic>
                               </Button>
-                              <Button fx:id="btnVirus" mnemonicParsing="false" onAction="#chooseVirus" prefHeight="278.0" prefWidth="300.0" style="-fx-background-color: #ffb3b0;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <graphic>
-                                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                                       <children>
-                                          <ImageView fitHeight="278.0" fitWidth="266.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../img/virus_circle.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fitHeight="249.0" fitWidth="253.0" layoutX="9.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../img/virus_center.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Circle fill="#ff742e" layoutX="225.0" layoutY="240.0" radius="18.0" stroke="#ff742e" strokeType="INSIDE" strokeWidth="0.0" />
-                                       </children>
-                                    </AnchorPane>
-                                 </graphic>
-                              </Button>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="186.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <children>
+                                    <Button fx:id="btnLoginVirus" mnemonicParsing="false" onAction="#openLoginVirus" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #ffa5a0; -fx-border-color: #ff8a84; -fx-border-width: 2px;" text="Login" textFill="#e61610">
+                                       <font>
+                                          <Font name="Comic Sans MS" size="18.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </VBox>
                            </children>
                         </GridPane>
                      </children>
