@@ -54,11 +54,11 @@ public class DashboardFXController implements Initializable {
         }
         // fill TableView with Score-data from the backend-server
         List<Score> apiscores = userResponse.getUser().getScores();
-//        columnOne.setCellValueFactory(new PropertyValueFactory<Score, Integer>("score"));
-//        columnTwo.setCellValueFactory(new PropertyValueFactory<Score, String>("date"));
-//        for (Score tmpscore : apiscores){
-//            table.getItems().add(tmpscore);
-//        }
+       columnOne.setCellValueFactory(new PropertyValueFactory<Score, Integer>("score"));
+       columnTwo.setCellValueFactory(new PropertyValueFactory<Score, String>("date"));
+       for (Score tmpscore : apiscores){
+           table.getItems().add(tmpscore);
+       }
     }
 
     

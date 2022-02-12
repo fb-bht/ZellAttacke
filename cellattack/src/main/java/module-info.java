@@ -7,7 +7,7 @@ module cellattack {
 
     // Physics-library Jbox2d
     requires jbox2d.library;
-
+    
     // HTTP REST-library
     requires unirest.java;
 
@@ -20,7 +20,7 @@ module cellattack {
     // needed for JavaFx
     opens de.bht.cellattack.controller to javafx.fxml;
     opens de.bht.cellattack.application to javafx.graphics;
-    opens de.bht.cellattack.model.dto to javafx.base;
+    opens de.bht.cellattack.model.dto to javafx.base, unirest.java;
 
     exports de.bht.cellattack;
 }
