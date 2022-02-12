@@ -54,6 +54,16 @@
                                           <Font name="Comic Sans MS" size="18.0" />
                                        </font>
                                     </Button>
+                                    <Button fx:id="btnBackCell" mnemonicParsing="false" onAction="#backToAvatarChoice" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #ffa5a0; -fx-border-color: #ff8a84; -fx-border-width: 2px;" text="Zurück" textFill="#e61610">
+                                       <font>
+                                          <Font name="Comic Sans MS" size="18.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="btnPlayCell" mnemonicParsing="false" onAction="#openGameCell" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #ffa5a0; -fx-border-color: #ff8a84; -fx-border-width: 2px;" text="Jetzt spielen" textFill="#e61610">
+                                       <font>
+                                          <Font name="Comic Sans MS" size="18.0" />
+                                       </font>
+                                    </Button>
                                  </children>
                               </VBox>
                               <Button fx:id="btnVirus" mnemonicParsing="false" prefHeight="278.0" prefWidth="300.0" style="-fx-background-color: #ffb3b0;" GridPane.columnIndex="1" GridPane.rowIndex="2">
