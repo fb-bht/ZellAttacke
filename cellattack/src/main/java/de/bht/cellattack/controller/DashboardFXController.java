@@ -37,11 +37,11 @@ public class DashboardFXController implements Initializable {
 
     @FXML
     private Button logoutButton;
-    @FXML
-    private Button btnVirus;
-    @FXML
-    private Button btnCell; 
-
+   
+    @FXML private TableView<Score> table;
+    @FXML private TableColumn<Score, Integer> columnOne;
+    @FXML private TableColumn<Score, String> columnTwo;
+    
     Window window;
 
 
@@ -54,11 +54,11 @@ public class DashboardFXController implements Initializable {
         }
         // fill TableView with Score-data from the backend-server
         List<Score> apiscores = userResponse.getUser().getScores();
-        columnOne.setCellValueFactory(new PropertyValueFactory<Score, Integer>("score"));
-        columnTwo.setCellValueFactory(new PropertyValueFactory<Score, String>("date"));
-        for (Score tmpscore : apiscores){
-            table.getItems().add(tmpscore);
-        }
+//        columnOne.setCellValueFactory(new PropertyValueFactory<Score, Integer>("score"));
+//        columnTwo.setCellValueFactory(new PropertyValueFactory<Score, String>("date"));
+//        for (Score tmpscore : apiscores){
+//            table.getItems().add(tmpscore);
+//        }
     }
 
     

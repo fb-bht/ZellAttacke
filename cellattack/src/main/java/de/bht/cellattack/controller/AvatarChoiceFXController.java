@@ -20,17 +20,13 @@ public class AvatarChoiceFXController {
 	private Button btnCell;
 	@FXML
 	private Button btnVirus;
-	@FXML
-	private Button btnPlayCell;
-	@FXML
-	private Button btnPlayVirus;
-	
+		
 	@FXML
 	protected void chooseCell(ActionEvent e) throws IOException {
 		stage = (Stage) btnCell.getScene().getWindow();
         stage.close();
 		
-        root = FXMLLoader.load(getClass().getResource("/fxml/DashCellFX.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/fxml/LoginCellFX.fxml"));
 
         scene = new Scene(root);
 
@@ -44,7 +40,7 @@ public class AvatarChoiceFXController {
 		stage = (Stage) btnVirus.getScene().getWindow();
         stage.close();
 		
-        root = FXMLLoader.load(getClass().getResource("/fxml/DashVirusFX.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/fxml/LoginVirusFX.fxml"));
 
         scene = new Scene(root);
 
@@ -52,15 +48,4 @@ public class AvatarChoiceFXController {
         stage.setTitle("CellAttack");
         stage.show();         
 	}
-	
-	 @FXML
-	 protected void showGameFieldCell(ActionEvent e) {
-		 btnPlayCell.setVisible(true);
-	 }
-
-	 @FXML
-	 protected void showGameFieldVirus(ActionEvent e) {
-		 btnPlayVirus.setVisible(true);
-	 }
-
 }

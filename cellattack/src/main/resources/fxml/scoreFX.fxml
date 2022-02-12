@@ -35,13 +35,12 @@
                   </HBox>
                </top>
                <center>
-                  <VBox alignment="CENTER" prefHeight="360.0" prefWidth="560.0" spacing="20.0" BorderPane.alignment="CENTER">
+                  <VBox alignment="CENTER" prefHeight="195.0" prefWidth="560.0" spacing="20.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TableView prefHeight="200.0" prefWidth="200.0">
+                        <TableView fx:id="table" prefHeight="200.0" prefWidth="550.0">
                            <columns>
-                              <TableColumn fx:id="columnNick1" prefWidth="187.0" text="Score" />
-                              <TableColumn fx:id="columnNick" prefWidth="187.0" text="Date" />
-                              <TableColumn fx:id="columnScore" prefWidth="187.0" text="User-Email" />
+                              <TableColumn fx:id="columnOne" prefWidth="284.0" text="Punkte" />
+                              <TableColumn fx:id="columnTwo" prefWidth="284.0" text="Datum" />
                            </columns>
                         </TableView>
                      </children>
