@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
@@ -26,7 +25,6 @@ import de.bht.cellattack.model.dto.Score;
 import de.bht.cellattack.model.dto.RestApi;
 import de.bht.cellattack.model.dto.UserApiResponse;
 
-
 /**
  * DashboardFXController Class
  * handles the User Dashboard View
@@ -37,6 +35,8 @@ public class DashboardFXController implements Initializable {
 
     @FXML
     private Button logoutButton;
+    @FXML
+    private Button btnBack;
    
     @FXML private TableView<Score> table;
     @FXML private TableColumn<Score, Integer> columnOne;
@@ -89,6 +89,36 @@ public class DashboardFXController implements Initializable {
         stage.setTitle("User Login");
         stage.show();
     }
+    
+    @FXML
+    protected void backToAvatarLogin(ActionEvent e) throws Exception {
+    	if (btnBack.isPressed() == true) {
+    		
+    		Stage stage = (Stage) btnBack.getScene().getWindow();
+            stage.close();
+            
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginCellFX.fxml"));
+            
+            Scene scene = new Scene(root);
+            
+            stage.setScene(scene);
+            stage.setTitle("CellAttack");
+            stage.show();
+    	} else {
+            Stage stage2 = (Stage) btnBack.getScene().getWindow();
+            stage2.close();
+            
+            Parent root2 = FXMLLoader.load(getClass().getResource("/fxml/LoginVirusFX.fxml"));
+            
+            Scene scene2 = new Scene(root2);
+            
+            stage2.setScene(scene2);
+            stage2.setTitle("CellAttack");
+            stage2.show();
+    	}
+    	
+    }
+
 
     public DashboardFXController() {
     }
