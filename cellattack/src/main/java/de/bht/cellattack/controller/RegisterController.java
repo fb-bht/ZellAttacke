@@ -1,16 +1,14 @@
 package de.bht.cellattack.controller;
 
 
-import de.bht.cellattack.application.Main;
 import de.bht.cellattack.helper.AlertHelper;
 import de.bht.cellattack.helper.Validator;
+import de.bht.cellattack.model.dto.ApiResponse;
+import de.bht.cellattack.model.dto.RestApi;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.MessageFormat;
 import java.util.ResourceBundle;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,12 +20,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-
-import kong.unirest.HttpResponse;
-import kong.unirest.JsonNode;
-import kong.unirest.Unirest;
-import kong.unirest.json.JSONException;
-import kong.unirest.json.JSONObject;
 
 
 /**
@@ -62,36 +54,28 @@ public class RegisterController implements Initializable {
      * Method register() makes a HTTP-request to register a new user
      */
     @FXML
-    private void register() throws InterruptedException, JSONException, ExecutionException, IOException {
+    private void register() throws Exception {
         window = registerButton.getScene().getWindow();
         if (this.isValidated()) {
-
-            CompletableFuture<HttpResponse<JsonNode>> reqResponse = Unirest.post(MessageFormat.format("{0}/signup", Main.SERVER_URL))
-                    .header("accept", "application/json")
-                    .header("content-type", "application/json")
-                    .body(new JSONObject()
-                            .put("password", password.getText())
-                            .put("email", email.getText())
-                            .toString())
-                    .asJsonAsync();
-
-            if (reqResponse.get().getBody().getObject().getBoolean("success")) {
+            ApiResponse registerResponse = RestApi.sentNewUserToApi(email.getText(), password.getText());
+            if (registerResponse == null) {
+                AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
+                        "Es ist ein Fehler beim registrieren aufgetreten");
+                throw new Exception("Es ist ein Fehler beim registrieren aufgetreten");
+            }
+            if (registerResponse.getSuccess()) {
                 this.clearForm();
                 System.out.println("Registrierung erfolgreich abgeschlossen.");
                 AlertHelper.showAlert(Alert.AlertType.INFORMATION, window, "Information",
                         "Registrierung erfolgreich abgeschlossen.");
                 this.showLoginStage();
-            } else if (!reqResponse.get().getBody().getObject().getBoolean("success")
-                    || reqResponse.get().getBody().getObject().getString("message")
+            } else if (!registerResponse.getSuccess()
+                    || registerResponse.getMessage().toString()
                             .equals("Email Address already in use!")) {
                 System.out.println("Der Benutzername ist bereits vergeben");
                 AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
                         "Der Benutzername ist bereits vergeben.");
-            } else {
-                System.out.println("Es ist ein Fehler beim registrieren aufgetreten");
-                AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
-                        "Es ist ein Fehler beim registrieren aufgetreten.");
-            }
+            } 
 
         } else {
             System.out.println("Es ist ein Fehler beim registrieren aufgetreten");

@@ -1,8 +1,6 @@
 package de.bht.cellattack.controller;
 
 import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.concurrent.CompletableFuture;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,15 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-import kong.unirest.HttpResponse;
-import kong.unirest.JsonNode;
-import kong.unirest.Unirest;
-
-import kong.unirest.json.JSONObject;
-import de.bht.cellattack.application.Main;
 import de.bht.cellattack.helper.AlertHelper;
 import de.bht.cellattack.helper.Validator;
-
+import de.bht.cellattack.model.dto.RestApi;
+import de.bht.cellattack.model.dto.UserLoginResponse;
 
 /**
  * Login Class
@@ -38,7 +31,6 @@ public class LoginController {
     @FXML
     private TextField email;
 
-
     @FXML
     private TextField password;
 
@@ -46,7 +38,6 @@ public class LoginController {
     private Button loginButton;
 
     Window window;
-
 
     /*
      * Method login() makes a HTTP-request to login a user
@@ -57,41 +48,30 @@ public class LoginController {
         window = loginButton.getScene().getWindow();
         if (this.isValidated()) {
 
-            CompletableFuture<HttpResponse<JsonNode>> reqResponse = Unirest
-                    .post(MessageFormat.format("{0}/signin", Main.SERVER_URL))
-                    .header("accept", "application/json")
-                    .header("content-type", "application/json")
-                    .body(new JSONObject()
-                            .put("password", password.getText())
-                            .put("usernameOrEmail", email.getText())
-                            .toString())
-                    .asJsonAsync();
-
-            if (reqResponse.get().getStatus() == 200) {
-                System.out.println("Login erfolgreich");
-                AlertHelper.showAlert(Alert.AlertType.INFORMATION, window, "Information",
-                        "Login erfolgreich");
-                // save token
-                System.out.println(reqResponse.get().getBody().getObject().getString("jwt"));
-                LoginController.token = reqResponse.get().getBody().getObject().getString("jwt");
-                
-                // change pane
-                Stage stage = (Stage) loginButton.getScene().getWindow();
-                stage.close();
-
-                Parent root = FXMLLoader.load(getClass().getResource("/fxml/DashboardView.fxml"));
-                                
-                Scene scene = new Scene(root);
-                
-                stage.setScene(scene);
-                stage.setTitle("Dashboard");
-                stage.show();
-
-            } else {
-                System.out.println("Email / Passwort falsch!");
+            UserLoginResponse loginResponse = RestApi.getLoginToken(email.getText(), password.getText());
+            if (loginResponse == null) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
                         "Email / Passwort falsch!");
+                throw new Exception("Email / Passwort falsch!");
             }
+            System.out.println("Login erfolgreich");
+            AlertHelper.showAlert(Alert.AlertType.INFORMATION, window, "Information",
+                    "Login erfolgreich");
+            // save token
+            System.out.println(loginResponse.getJwt()); 
+            LoginController.token = loginResponse.getJwt();
+
+            // change pane
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.close();
+
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/DashboardView.fxml"));
+
+            Scene scene = new Scene(root);
+
+            stage.setScene(scene);
+            stage.setTitle("Dashboard");
+            stage.show();
 
         } else {
             System.out.println("Es ist ein Fehler beim einloggen aufgetreten");
@@ -100,7 +80,6 @@ public class LoginController {
         }
 
     }
-
 
     /*
      * method isValidated() checks if the user input ist valid
@@ -135,8 +114,6 @@ public class LoginController {
         return false;
     }
 
-
-
     /*
      * Method changes the displayed form from login to register
      */
@@ -154,6 +131,4 @@ public class LoginController {
         stage.show();
     }
 
-
 }
-
