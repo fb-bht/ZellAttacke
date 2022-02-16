@@ -3,7 +3,6 @@ package de.bht.cellattack.model.dto;
 import java.text.MessageFormat;
 
 import de.bht.cellattack.application.Main;
-import de.bht.cellattack.controller.LoginController;
 
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
@@ -59,10 +58,10 @@ public class RestApi {
     }
 
 
-    public static UserApiResponse getUserFromAPI() {
+    public static UserApiResponse getUserFromAPI(String token) {
         try {
             HttpResponse<JsonNode> response = Unirest.get(MessageFormat.format("{0}/user", Main.SERVER_URL))
-                    .header("Authorization", MessageFormat.format("Bearer {0}", LoginController.token))
+                    .header("Authorization", MessageFormat.format("Bearer {0}", token))
                     .asJson();
             UserApiResponse userResponse = new Gson().fromJson(response.getBody().getObject().toString(),
                     UserApiResponse.class);
@@ -74,10 +73,10 @@ public class RestApi {
     }
 
 
-    public static String sentScoreToAPI(int score) {
+    public static String sentScoreToAPI(int score, String token) {
         try {
             HttpResponse<JsonNode> response = Unirest.post(MessageFormat.format("{0}/score", Main.SERVER_URL))
-                    .header("Authorization", MessageFormat.format("Bearer {0}", LoginController.token))
+                    .header("Authorization", MessageFormat.format("Bearer {0}", token))
                     .header("accept", "application/json")
                     .header("content-type", "application/json")
                     .body(new JSONObject()

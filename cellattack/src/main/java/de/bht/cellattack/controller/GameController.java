@@ -2,6 +2,7 @@ package de.bht.cellattack.controller;
 
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -21,6 +22,7 @@ public class GameController {
 	
 	// View
 	private Renderer view;
+
 
 	public GameController(Renderer view) {
 		this.view = view;
@@ -50,6 +52,7 @@ public class GameController {
 				view.render();
 				Arena.box2d.step();
 				handleInput();
+				model.update();
 			}
 		}.start();
 	}
@@ -60,13 +63,13 @@ public class GameController {
 		view.getViewPane().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
-				if (event.getCode() == KeyCode.C) {
+				if (event.getCode() == KeyCode.C && !model.blockedPlayer1) {
 					System.out.println("CKey");
 					model.orbiterP1.removeJoint();
 					model.startCountDown();
 					model.createOrbiterP1();
 				}
-				if (event.getCode() == KeyCode.V) {
+				if (event.getCode() == KeyCode.V && !model.blockedPlayer2) {
 					System.out.println("VKey");
 					model.orbiterP2.removeJoint();
 					model.startCountDown();
@@ -74,6 +77,17 @@ public class GameController {
 				}
 			}
 		});
+		
+		// view.getViewPane().getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+		// 	if(event.getCode() == KeyCode.C) {
+		// 		model.startCountDown();
+		// 		// model.orbiterP1.removeJoint();
+		// 	}
+		// 	if (event.getCode() == KeyCode.V) {
+
+		// 	}
+		// 	event.consume();
+		// });
 	}
 
 }

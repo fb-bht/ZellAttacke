@@ -38,7 +38,7 @@ public class MenueFXController {
 			node = (Node) e.getSource();
 			stage = (Stage) node.getScene().getWindow();
 			scene = stage.getScene();
-			fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/avatarchoiceFX.fxml"));
+			fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/avatarFX.fxml"));
 			root = (Parent) fxmlLoader.load();
 			scene.setRoot(root);
 	    } catch (IOException e1) {

@@ -16,6 +16,7 @@ public class Rect implements GameObject {
 	Body body;
 	float width;
 	float height;
+	String entityType;
 
 	public Rect(float x, float y, float w, float h) {
 		this.width = w;
@@ -54,6 +55,26 @@ public class Rect implements GameObject {
 		float xPosRect = temp.x - this.width/2;
 		float yPosRect = temp.y - this.height/2;
 		return (new Vec2(xPosRect, yPosRect));
+	}
+	
+	/*
+	 * set the entity type of the GameObject
+	 * 
+	 * @param entity Type
+	 */
+	@Override
+	public void setEntityType(String et) {
+		this.entityType = et;
+	}
+	
+	/* 
+	* returns the entity type of the GameObject
+	 * 
+	 * @return entity Type
+	 */
+	@Override
+	public String getEntityType() {
+		return this.entityType;
 	}
 
 	/*

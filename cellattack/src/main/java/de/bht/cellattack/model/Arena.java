@@ -1,10 +1,12 @@
 package de.bht.cellattack.model;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import org.jbox2d.dynamics.BodyType;
 
-import de.bht.cellattack.model.Sprite;
+import de.bht.cellattack.model.dto.User;
 import de.bht.cellattack.application.Main;
-import de.bht.cellattack.model.GameObject;
 import de.bht.cellattack.box2D.Box2dUtils;
 
 import javafx.beans.property.SimpleIntegerProperty;
@@ -27,7 +29,15 @@ public class Arena {
 	private Sprite player2;
 	public Sprite orbiterP1;
 	public Sprite orbiterP2;
-	
+	// -----------------Start Dev
+	ExecutorService singleThreadPoolPlayer1 = Executors.newSingleThreadExecutor();
+	ExecutorService singleThreadPoolPlayer2 = Executors.newSingleThreadExecutor();
+	public boolean blockedPlayer1 = false;
+	public boolean blockedPlayer2 = false;
+	// -----------------End Dev
+	public static User tokenPlayer1 = new User();
+	public static User tokenPlayer2 = new User();
+
 	public static Box2dUtils box2d;
 
 	public Arena() {
@@ -42,6 +52,14 @@ public class Arena {
 
 	public SimpleIntegerProperty getScorePlayer2Property() {
 		return scorePlayer2;
+	}
+
+	public ObservableList<GameObject> getGameObjects() {
+		return gameObjects;
+	}
+
+	public Box2dUtils getBox2d() {
+		return box2d;
 	}
 
 	public void placeEntities() {
@@ -63,24 +81,14 @@ public class Arena {
 		gameObjects.add(player2);
 		// Orbiter
 		createOrbiterP2();
-		
-	// Entities
+
+		// Entities
 		for (int i = 0; i < 50; i++) {
 			GameObject neutral = new Sprite(new Image(getClass().getResourceAsStream("/img/neutral_center.png")),
 					(float) Math.random() * 10 + 300, (float) Math.random() * 10 + 350, 20);
 			gameObjects.add(neutral);
 			((Sprite) neutral).setEntityType("neutral");
 		}
-	}
-	
-	/*
-	 * starts a Delay
-	 */
-	public void startCountDown() {
-		Thread clock = new CountDownThread();
-		clock.start();  
-		//orbiterP1.removeJoint();
-		//orbiterP2.removeJoint();
 	}
 
 	public void createOrbiterP1() {
@@ -98,18 +106,27 @@ public class Arena {
 	}
 
 	public void update() {
-//		for (int i = 0; i < neutrals.size(); i++) {
-//			if (neutrals.get(i).getPos().x < 0 - neutrals.get(i).getRadius() * 2
-//					|| neutrals.get(i).getPos().x > 350
-//					|| neutrals.get(i).getPos().y < 0 - neutrals.get(i).getRadius() * 2
-//					|| neutrals.get(i).getPos().y > Main.HEIGHT) {
-//				neutrals.get(i).removeSprite(); // removes Box2D Body
-//			}
-//		}
+		int numberOfNeutrals = 0;
+		for (GameObject object : gameObjects) {
+			if (object.getEntityType() == ("neutral")) {
+				numberOfNeutrals++;
+				Sprite obj = (Sprite) object;
+				if (obj.getPos().x < 0 - obj.getRadius() * 2
+						|| obj.getPos().x > 400 //Main.WIDTH
+						|| obj.getPos().y < 0 - obj.getRadius() * 2
+						|| obj.getPos().y > Main.HEIGHT) {
+					obj.removeSprite(); // removes Box2D Body
+					gameObjects.remove(obj); // removes object from View
+				}
+			}
+		}
+		if(numberOfNeutrals < 48) {
+			gameOver();
+		}
 	}
 
-	public ObservableList<GameObject> getGameObjects() {
-		return gameObjects;
+	private void gameOver() {
+		System.out.println("GameOver");
 	}
 
 	public void np1Collision() {
@@ -126,8 +143,22 @@ public class Arena {
 		System.out.println("ppCollision");
 	}
 
-	public Box2dUtils getBox2d() {
-		return box2d;
+	public void singleThreadExecutorPlayer1() {
+		blockedPlayer1 = true;
+		singleThreadPoolPlayer1.execute(new CountDown());
+		blockedPlayer1 = false;
+	}
+
+	/*
+	 * starts a Delay
+	 */
+	public void startCountDown() {
+		System.out.println("startCountDown");
+		singleThreadExecutorPlayer1();
+		// Thread clock = new CountDownThread();
+		// clock.start();
+		// orbiterP1.removeJoint();
+		// orbiterP2.removeJoint();
 	}
 
 }

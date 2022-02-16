@@ -26,9 +26,29 @@ public class Renderer {
 	GraphicsContext context;
 
 	ArrayList<GameObject> viewList = new ArrayList<GameObject>();
-	Label ScoreTextPlayer1 = new Label("0");
-	Label ScoreTextPlayer2 = new Label("0");
+	Label scoreTextPlayer1 = new Label("0");
+	Label scoreTextPlayer2 = new Label("0");
+	//--------------------Start Dev
+	Label countDownPlayer1 = new Label("");
+	Label countDownPlayer2 = new Label("");
 
+
+	public Label getCountDownPlayer1() {
+		return countDownPlayer1;
+	}
+
+	public void setCountDownPlayer1(Label countDownPlayer1) {
+		this.countDownPlayer1 = countDownPlayer1;
+	}
+
+	public Label getCountDownPlayer2() {
+		return countDownPlayer2;
+	}
+
+	public void setCountDownPlayer2(Label countDownPlayer2) {
+		this.countDownPlayer2 = countDownPlayer2;
+	}
+	//---------------------End Dev
 	public Renderer() {
 		pane = createView();
 	}
@@ -38,11 +58,11 @@ public class Renderer {
 	}
 	
 	public Label getScoreTextPlayer1() {
-		return ScoreTextPlayer1;
+		return scoreTextPlayer1;
 	}
 	
 	public Label getScoreTextPlayer2() {
-		return ScoreTextPlayer2;
+		return scoreTextPlayer2;
 	}
 	
 	
@@ -52,12 +72,12 @@ public class Renderer {
 		
 		Label p1 = new Label("Player 1: "); 
         HBox InfoBoxP1 = new HBox(); 
-        InfoBoxP1.getChildren().addAll(p1, ScoreTextPlayer1); 
+        InfoBoxP1.getChildren().addAll(p1, scoreTextPlayer1, countDownPlayer1); 
         AnchorPane.setTopAnchor(InfoBoxP1, 10.0);
         
 		Label p2 = new Label("Player 2: "); 
         HBox InfoBoxP2 = new HBox(); 
-        InfoBoxP2.getChildren().addAll(p2, ScoreTextPlayer2); 
+        InfoBoxP2.getChildren().addAll(p2, scoreTextPlayer2, countDownPlayer2); 
         AnchorPane.setBottomAnchor(InfoBoxP2, 10.0);
         
         aPane.getChildren().addAll(canvas, InfoBoxP1, InfoBoxP2);

@@ -9,11 +9,9 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
-import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.joints.RevoluteJoint;
 import org.jbox2d.dynamics.joints.RevoluteJointDef;
 
-import de.bht.cellattack.box2D.Box2dUtils;
 
 /**
  * Sprite Class for creating a GameObject with Image
@@ -69,6 +67,7 @@ public class Sprite implements GameObject {
 	 * 
 	 * @param entity Type
 	 */
+	@Override
 	public void setEntityType(String et) {
 		this.entityType = et;
 	}
@@ -78,6 +77,7 @@ public class Sprite implements GameObject {
 	 * 
 	 * @return entity Type
 	 */
+	@Override
 	public String getEntityType() {
 		return this.entityType;
 	}
@@ -132,7 +132,7 @@ public class Sprite implements GameObject {
 	public void addJoint(Sprite anchor) {
 		RevoluteJointDef rjd = new RevoluteJointDef();
 		rjd.initialize(this.body, anchor.body, anchor.body.getWorldCenter());
-		rjd.motorSpeed = 2.0f;
+		rjd.motorSpeed = 1.0f;
 		rjd.maxMotorTorque = 1000.0f;
 		rjd.enableMotor = true; 
 		joint = (RevoluteJoint) Arena.box2d.createJoint(rjd);

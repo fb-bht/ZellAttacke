@@ -6,8 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
 /**
- * Main Class for Login
+ * MainPanel Class for Login process
+ * only needed for Debugging/Development
  */
 public class MainPanel extends Application {
 

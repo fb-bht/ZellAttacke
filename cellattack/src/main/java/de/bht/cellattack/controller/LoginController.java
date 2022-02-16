@@ -2,6 +2,7 @@ package de.bht.cellattack.controller;
 
 import java.io.IOException;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +15,9 @@ import javafx.stage.Window;
 
 import de.bht.cellattack.helper.AlertHelper;
 import de.bht.cellattack.helper.Validator;
+import de.bht.cellattack.model.Arena;
 import de.bht.cellattack.model.dto.RestApi;
+import de.bht.cellattack.model.dto.User;
 import de.bht.cellattack.model.dto.UserLoginResponse;
 
 /**
@@ -25,25 +28,29 @@ import de.bht.cellattack.model.dto.UserLoginResponse;
  */
 public class LoginController {
 
-    // for Development - delete later !!!!!
-    public static String token;
-
     @FXML
     private TextField email;
 
     @FXML
     private TextField password;
 
-    @FXML
-    private Button loginButton;
+    @FXML private Button loginButton;
+    @FXML private Button backButton;
 
     Window window;
+    User playerRef;
+
+    public LoginController(User x) {
+        playerRef = x;
+    }
+
 
     /*
      * Method login() makes a HTTP-request to login a user
      */
     @FXML
     private void login() throws Exception {
+        System.out.println("PlayerRef: " + playerRef);
 
         window = loginButton.getScene().getWindow();
         if (this.isValidated()) {
@@ -58,17 +65,18 @@ public class LoginController {
             AlertHelper.showAlert(Alert.AlertType.INFORMATION, window, "Information",
                     "Login erfolgreich");
             // save token
-            System.out.println(loginResponse.getJwt()); 
-            LoginController.token = loginResponse.getJwt();
+            System.out.println(loginResponse.getJwt());
+            playerRef.setToken(loginResponse.getJwt());
 
             // change pane
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.close();
 
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/DashboardView.fxml"));
-
+            DashboardFXController ctrl = new DashboardFXController(playerRef);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DashboardView.fxml"));
+			fxmlLoader.setController(ctrl);
+            Parent root = (Parent) fxmlLoader.load();
             Scene scene = new Scene(root);
-
             stage.setScene(scene);
             stage.setTitle("Dashboard");
             stage.show();
@@ -121,14 +129,24 @@ public class LoginController {
     private void showRegisterStage() throws IOException {
         Stage stage = (Stage) loginButton.getScene().getWindow();
         stage.close();
-
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/RegisterView.fxml"));
-
         Scene scene = new Scene(root);
-
         stage.setScene(scene);
         stage.setTitle("User Registration");
         stage.show();
     }
+
+    /**
+     * Method to change view back to caller
+     */
+    @FXML
+    private void back(ActionEvent e) throws IOException {
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            Scene scene = stage.getScene();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/avatarFX.fxml"));
+            Parent root = (Parent) fxmlLoader.load(); 
+            scene.setRoot(root);
+    }
+    
 
 }
