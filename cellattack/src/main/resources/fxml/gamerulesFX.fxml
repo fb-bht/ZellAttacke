@@ -61,7 +61,7 @@
                         <Insets left="20.0" />
                      </VBox.margin>
                   </Label>
-                  <Label prefHeight="28.0" prefWidth="536.0" text="Mit den folgenden Tasten startet ihr einen Angriff: C für Zelle / V für Virus" textFill="#e61610" wrapText="true">
+                  <Label prefHeight="28.0" prefWidth="527.0" text="Mit den folgenden Tasten startet ihr einen Angriff: C für Zelle / V für Virus" textFill="#e61610">
                      <font>
                         <Font name="Comic Sans MS" size="14.0" />
                      </font>
