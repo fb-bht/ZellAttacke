@@ -23,7 +23,7 @@ public class GameRulesFXController {
 	private Button btnOK;
 	
 	@FXML
-	protected void goBackToStart(ActionEvent e) {
+	protected void goBackToMenue(ActionEvent e) {
 		try {
 			node = (Node) e.getSource();
 			stage = (Stage) node.getScene().getWindow();
