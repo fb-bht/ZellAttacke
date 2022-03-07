@@ -2,16 +2,17 @@ package de.bht.cellattack.model;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.jbox2d.dynamics.BodyType;
 
 import de.bht.cellattack.model.dto.User;
 import de.bht.cellattack.application.Main;
 import de.bht.cellattack.box2D.Box2dUtils;
-
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 
 /**
@@ -23,27 +24,32 @@ import javafx.scene.image.Image;
 public class Arena {
 
 	private ObservableList<GameObject> gameObjects;
+	private boolean gameState;
 	private SimpleIntegerProperty scorePlayer1 = new SimpleIntegerProperty();
 	private SimpleIntegerProperty scorePlayer2 = new SimpleIntegerProperty();
+	// private ExecutorService singleThreadPoolPlayer1 = Executors.newSingleThreadExecutor();
+	// private ExecutorService singleThreadPoolPlayer2 = Executors.newSingleThreadExecutor();
+
+
 	private Sprite player1;
 	private Sprite player2;
+	private SimpleIntegerProperty winningScore = new SimpleIntegerProperty(); //TODO
+
+
+
 	public Sprite orbiterP1;
 	public Sprite orbiterP2;
-	// -----------------Start Dev
-	ExecutorService singleThreadPoolPlayer1 = Executors.newSingleThreadExecutor();
-	ExecutorService singleThreadPoolPlayer2 = Executors.newSingleThreadExecutor();
-	public boolean blockedPlayer1 = false;
-	public boolean blockedPlayer2 = false;
-	// -----------------End Dev
-	public static User tokenPlayer1 = new User();
-	public static User tokenPlayer2 = new User();
 
+	public static User refPlayer1 = new User();
+	public static User refPlayer2 = new User();
 	public static Box2dUtils box2d;
+
 
 	public Arena() {
 		gameObjects = FXCollections.observableArrayList();
 		box2d = Box2dUtils.getInstance();
 		box2d.createContactListener(this);
+		gameState = true;
 	}
 
 	public SimpleIntegerProperty getScorePlayer1Property() {
@@ -60,6 +66,18 @@ public class Arena {
 
 	public Box2dUtils getBox2d() {
 		return box2d;
+	}
+
+	public void setGameState(boolean gameState) {
+		this.gameState = gameState;
+	}
+
+	public boolean getGameState() {
+		return gameState;
+	}
+
+	public SimpleIntegerProperty getWinningScore() {
+		return winningScore;
 	}
 
 	public void placeEntities() {
@@ -115,19 +133,32 @@ public class Arena {
 						|| obj.getPos().x > 400 //Main.WIDTH
 						|| obj.getPos().y < 0 - obj.getRadius() * 2
 						|| obj.getPos().y > Main.HEIGHT) {
-					obj.removeSprite(); // removes Box2D Body
-					gameObjects.remove(obj); // removes object from View
+					obj.removeBody(); // removes Box2D Body
+					obj.setEntityType("killed"); // removes object from View
 				}
 			}
 		}
-		if(numberOfNeutrals < 48) {
+		if(numberOfNeutrals < 47) {
 			gameOver();
 		}
 	}
 
 	private void gameOver() {
 		System.out.println("GameOver");
+		// freeze view
+		this.gameState = false;
+		// assign gameScore to player
+		refPlayer1.setGameScore(getScorePlayer1Property().get());
+		refPlayer2.setGameScore(getScorePlayer2Property().get());
+		// stop orbiter threadPool
+		// singleThreadPoolPlayer1.shutdown();
+		// singleThreadPoolPlayer2.shutdown();
+		// remove all box2d objects
+		for(GameObject object: gameObjects) {
+			object.removeBody();
+		}
 	}
+	
 
 	public void np1Collision() {
 		scorePlayer1.set(scorePlayer1.get() + 1);
@@ -143,22 +174,36 @@ public class Arena {
 		System.out.println("ppCollision");
 	}
 
-	public void singleThreadExecutorPlayer1() {
-		blockedPlayer1 = true;
-		singleThreadPoolPlayer1.execute(new CountDown());
-		blockedPlayer1 = false;
-	}
+	/*
+	 * starts a Delay for Player1
+	 */
+	// public void countDownThreadExecutorPlayer1() {
+		// singleThreadPoolPlayer1.execute(new CountDown(refPlayer1));
+		
+
+		// AtomicInteger counterCountDownPlayer1 = new AtomicInteger();
+		// singleThreadPoolPlayer1.submit(() -> {
+		// 	refPlayer1.setBlocked(true);
+		// 	for (int i = 10; i > 0; i = i - 1) {
+		// 		countDownIntegerPropertyPlayer1.set(i);
+		// 		try {
+		// 			Thread.sleep(300);
+		// 		} catch (InterruptedException e) {
+		// 			e.printStackTrace();
+		// 		}
+		// 	}
+		// 	// countDownIntegerPropertyPlayer1 = (SimpleIntegerProperty) counterCountDownPlayer1;
+		// 	refPlayer1.setBlocked(false);
+		// });
+	// }
 
 	/*
-	 * starts a Delay
+	 * starts a Delay for Player2
 	 */
-	public void startCountDown() {
-		System.out.println("startCountDown");
-		singleThreadExecutorPlayer1();
-		// Thread clock = new CountDownThread();
-		// clock.start();
-		// orbiterP1.removeJoint();
-		// orbiterP2.removeJoint();
-	}
+	// public void countDownThreadExecutorPlayer2() {
+	// 	singleThreadPoolPlayer2.execute(new CountDown(refPlayer2));
+	// }
+	
 
+	
 }

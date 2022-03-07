@@ -49,10 +49,13 @@ public class DashboardFXController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         UserApiResponse userResponse = null;
-        userResponse = RestApi.getUserFromAPI(playerRef.getToken());
+        String token = playerRef.getToken();
+        userResponse = RestApi.getUserFromAPI(token);
         if (userResponse == null) {
             throw new RuntimeException("Es ist etwas schiefgelaufen. Bitte in einiger Zeit noch einmal versuchen.");
         }
+        playerRef = userResponse.getUser();
+        playerRef.setToken(token); 
         // fill TableView with Score-data from the backend-server
         List<Score> apiscores = userResponse.getUser().getScores();
         columnOne.setCellValueFactory(new PropertyValueFactory<Score, Integer>("score"));
