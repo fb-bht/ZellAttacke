@@ -148,7 +148,8 @@ public class Sprite implements GameObject {
 	/*
 	 * Removes a Sprite image
 	 */
-	public void removeSprite() {
+	@Override
+	public void removeBody() {
 		Arena.box2d.destroyBody(this.body);
 	}
 	

@@ -15,7 +15,6 @@ import javafx.stage.Window;
 
 import de.bht.cellattack.helper.AlertHelper;
 import de.bht.cellattack.helper.Validator;
-import de.bht.cellattack.model.Arena;
 import de.bht.cellattack.model.dto.RestApi;
 import de.bht.cellattack.model.dto.User;
 import de.bht.cellattack.model.dto.UserLoginResponse;

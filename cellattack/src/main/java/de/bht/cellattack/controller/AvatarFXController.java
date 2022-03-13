@@ -49,49 +49,49 @@ public class AvatarFXController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("initilize Method called");
 		
-		if(Arena.tokenPlayer1.getToken() != null) {
+		if(Arena.refPlayer1.getToken() != null) {
 			btnLoginPlayer1.setVisible(false);
 			btnLogoutPlayer1.setVisible(true);
 			btnDetailPlayer1.setVisible(true);
 		}
-		if(Arena.tokenPlayer2.getToken() != null) {
+		if(Arena.refPlayer2.getToken() != null) {
 			btnLoginPlayer2.setVisible(false);
 			btnLogoutPlayer2.setVisible(true);
 			btnDetailPlayer2.setVisible(true);
 		}
-		if(Arena.tokenPlayer1.getToken() != null && Arena.tokenPlayer2.getToken() != null) {
+		if(Arena.refPlayer1.getToken() != null && Arena.refPlayer2.getToken() != null) {
 			btnPlayGame.setVisible(true);
 			header.setVisible(false);
 		}	
 	}
 	
 	@FXML protected void loginPlayer1(ActionEvent e) throws IOException {
-		loadView(e, Arena.tokenPlayer1, "/fxml/LoginView.fxml");
+		loadView(e, Arena.refPlayer1, "/fxml/LoginView.fxml");
 	}
 
 	@FXML protected void loginPlayer2(ActionEvent e) throws IOException {
-		loadView(e, Arena.tokenPlayer2, "/fxml/LoginView.fxml");
+		loadView(e, Arena.refPlayer2, "/fxml/LoginView.fxml");
 	}
 	
 	@FXML protected void getDetailsPlayer1(ActionEvent e) throws IOException {
-		loadView(e, Arena.tokenPlayer1, "/fxml/DashboardView.fxml");
+		loadView(e, Arena.refPlayer1, "/fxml/DashboardView.fxml");
 	}
 	
 	@FXML protected void getDetailsPlayer2(ActionEvent e) throws IOException {
-		loadView(e, Arena.tokenPlayer2, "/fxml/DashboardView.fxml");
+		loadView(e, Arena.refPlayer2, "/fxml/DashboardView.fxml");
 	}
 	
-	private void loadView(ActionEvent e, User playerToken, String path) throws IOException {
+	private void loadView(ActionEvent e, User player, String path) throws IOException {
 		Node node = (Node) e.getSource();
 		stage = (Stage) node.getScene().getWindow();
 		scene = stage.getScene();
 		FXMLLoader fxmlLoader = null;
 		if(path.substring(6,11).equals("Login")) {
-			LoginController ctrl = new LoginController(playerToken);
+			LoginController ctrl = new LoginController(player);
 			fxmlLoader = new FXMLLoader(getClass().getResource(path));
 			fxmlLoader.setController(ctrl);
 		} else if(path.substring(6, 11).equals("Dashb")) {
-			DashboardFXController ctrl = new DashboardFXController(playerToken);
+			DashboardFXController ctrl = new DashboardFXController(player);
 			fxmlLoader = new FXMLLoader(getClass().getResource(path));
 			fxmlLoader.setController(ctrl);
 		} else {
@@ -102,7 +102,7 @@ public class AvatarFXController implements Initializable {
 	}
 
 	@FXML protected void logoutPlayer1(ActionEvent e) throws IOException {
-		Arena.tokenPlayer1.setToken(null);
+		Arena.refPlayer1.setToken(null);
 		// show info message
 		Node node = (Node) e.getSource();
 		Window window = node.getScene().getWindow();
@@ -119,7 +119,7 @@ public class AvatarFXController implements Initializable {
 	}
 
 	@FXML protected void logoutPlayer2(ActionEvent e) throws IOException {
-		Arena.tokenPlayer2.setToken(null); 
+		Arena.refPlayer2.setToken(null); 
 		// show info message
 		Node node = (Node) e.getSource();
 		Window window = node.getScene().getWindow();

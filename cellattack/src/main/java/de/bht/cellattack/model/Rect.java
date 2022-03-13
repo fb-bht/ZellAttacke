@@ -95,4 +95,11 @@ public class Rect implements GameObject {
 		return height;
 	}
 
+	/*
+	 * Removes a Sprite image
+	 */
+	@Override
+	public void removeBody() {
+		Arena.box2d.destroyBody(this.body);
+	}
 }
