@@ -51,7 +51,7 @@ public class ScoreFXController implements Initializable {
 	
 	
 	@FXML
-	protected void goBackToStart(ActionEvent e) {
+	protected void goBackToMenue(ActionEvent e) {
 		try {
 			node = (Node) e.getSource();
 			stage = (Stage) node.getScene().getWindow();

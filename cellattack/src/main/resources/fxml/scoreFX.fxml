@@ -47,7 +47,7 @@
          <bottom>
             <HBox alignment="CENTER_RIGHT" prefHeight="13.0" prefWidth="560.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnOk" focusTraversable="false" mnemonicParsing="false" onAction="#goBackToStart" style="-fx-background-color: #ff8a84;" text="Ok" textFill="#e61010">
+                  <Button fx:id="btnOk" focusTraversable="false" mnemonicParsing="false" onAction="#goBackToMenue" style="-fx-background-color: #ff8a84;" text="Ok" textFill="#e61010">
                      <font>
                         <Font name="Comic Sans MS" size="14.0" />
                      </font>
