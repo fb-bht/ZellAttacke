@@ -12,10 +12,9 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * Controller for function scene
+ * Controller for changing scenes
  * 
  * @author Stefanie S.
- *
  */
 public class MenueFXController {
 
@@ -32,6 +31,12 @@ public class MenueFXController {
 	@FXML 
 	private Button btnScore;
 		
+	
+	/** 
+	 * Change View to Avatar selection
+	 * 
+	 * @param e
+	 */
 	@FXML
 	protected void openNewGame(ActionEvent e) {
 		try {
@@ -46,6 +51,12 @@ public class MenueFXController {
 	    }         
 	}
 	
+	
+	/** 
+	 * Change View to Game rules
+	 * 
+	 * @param e
+	 */
 	@FXML
 	protected void howToPlay(ActionEvent e) {
 		try {
@@ -60,6 +71,12 @@ public class MenueFXController {
 	    }
 	}
 	
+	
+	/**
+	 * Change View to Highscore
+	 * 
+	 * @param e
+	 */
 	@FXML
 	protected void openScore(ActionEvent e) {
 		try {
@@ -73,4 +90,5 @@ public class MenueFXController {
 	        e1.printStackTrace();
 	    }
 	}
+	
 }

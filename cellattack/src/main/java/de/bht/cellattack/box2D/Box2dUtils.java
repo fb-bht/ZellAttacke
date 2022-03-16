@@ -38,11 +38,15 @@ public class Box2dUtils {
 		transX = canvasWidth / 2.0f;
 		transY = canvasHeight / 2.0f;
 		scaleFactor = 10.0f;
-		yFlip = -1.0f; // = -1.0f; //flip y coordinate
+		yFlip = -1.0f;  //flip y coordinate
 		world = createWorld();
 	}
 	
-    // Return Singleton  
+    
+	/** 
+	 * Return Singleton of Box2Utils 
+	 * @return Box2dUtils
+	 */
 	public static Box2dUtils getInstance() {
 		Box2dUtils result = instance;
         if (result != null) {
@@ -56,15 +60,23 @@ public class Box2dUtils {
         }		
 	}
 	
-	
-	
 	/*------- Coordinate Transformations -------*/	
 	
-	// Functions to convert from Box2D world to Pixel world
+	/** 
+	 * Functions to convert from Box2D world to Pixel world
+	 * @param world
+	 * @return Vec2
+	 */
 	public Vec2 coordWorldToPixels(Vec2 world) {
 		return coordWorldToPixels(world.x,world.y);
 	}	
-	// Functions to convert from Box2D world to Pixel world
+	
+	/** 
+	 * Functions to convert from Box2D world to Pixel world
+	 * @param worldX
+	 * @param worldY
+	 * @return Vec2
+	 */
 	public Vec2 coordWorldToPixels(float worldX, float worldY) {
 		float pixelX = map(worldX, 0f, 1f, transX, transX+scaleFactor);
 		float pixelY = map(worldY, 0f, 1f, transY, transY+scaleFactor);
@@ -72,11 +84,21 @@ public class Box2dUtils {
 		return new Vec2(pixelX, pixelY);
 	}
 	
-	// Functions to convert from Pixel world to Box2D world 
+	/** 
+	 * Functions to convert from Pixel world to Box2D world 
+	 * @param screen
+	 * @return Vec2
+	 */
 	public Vec2 coordPixelsToWorld(Vec2 screen) {
 		return coordPixelsToWorld(screen.x,screen.y);
 	}
-	// Functions to convert from Pixel world to Box2D world
+	
+	/** 
+	 * Functions to convert from Pixel world to Box2D world
+	 * @param pixelX
+	 * @param pixelY
+	 * @return Vec2
+	 */
 	public Vec2 coordPixelsToWorld(float pixelX, float pixelY) {
 		float worldX = map(pixelX, transX, transX+scaleFactor, 0f, 1f);
 		float worldY = pixelY;
@@ -84,47 +106,82 @@ public class Box2dUtils {
 		worldY = map(worldY, transY, transY+scaleFactor, 0f, 1f);
 		return new Vec2(worldX,worldY);
 	}
-	// Helper-Function
+	
+	/** 
+	 * Helper-Function
+	 * @param var
+	 * @param min1
+	 * @param max1
+	 * @param min2
+	 * @param max2
+	 * @return float
+	 */
 	private float map(float var, float min1, float max1, float min2, float max2) {
 		return min2+(max2-min2)*((var-min1)/(max1-min1));
 	}
 	
-	// Find position of a body
+	/** 
+	 * Find position of a body
+	 * @param b
+	 * @return Vec2
+	 */
 	public Vec2 getBodyPixelCoord(Body b) {
 		Transform xf = b.getTransform();
 		return coordWorldToPixels(xf.p); 
 	}
 	
-	// Scale scalar quantity between worlds
+	/** 
+	 * Scale scalar quantity between worlds
+	 * @param val
+	 * @return float
+	 */
 	public float scalarPixelsToWorld(float val) {
 		return val / scaleFactor;
 	}
-	// Scale scalar quantity between worlds
+	
+	/** 
+	 * Scale scalar quantity between worlds
+	 * @param val
+	 * @return float
+	 */
 	public float scalarWorldToPixels(float val) {
 		return val * scaleFactor;
 	}
 	
-
 	
 	/*------- Creation Functions -------*/
 	
-	// create a world
+	/** 
+	 * create a world
+	 * @return World
+	 */
 	private World createWorld() {
 		this.world = new World(new Vec2(0.0f, 0.0f));
 		return this.world;
 	}
 	
-	// Create a Body
+	/** 
+	 * Create a Body
+	 * @param bd
+	 * @return Body
+	 */
 	public Body createBody(BodyDef bd) {
 		return this.world.createBody(bd);
 	}
 	
-	// Create a Joint
+	/** 
+	 * Create a Joint
+	 * @param jd
+	 * @return Joint
+	 */
 	public Joint createJoint(JointDef jd) {
 		return this.world.createJoint(jd);
 	}
 	
-	// Create a Contact Listener
+	/** 
+	 * Create a Contact Listener
+	 * @param modelRef
+	 */
 	public void createContactListener(Arena modelRef) {
 		this.contactListener = new Box2DContactListener(modelRef);
 		this.world.setContactListener(contactListener);
@@ -132,18 +189,27 @@ public class Box2dUtils {
 	
 	/*------- Destruction Functions -------*/
 	
-	// Destroys Body
+	/** 
+	 * Destroys Body
+	 * @param body
+	 */
 	public void destroyBody(Body body) {
 		this.world.destroyBody(body);
 	}
 	
+	/** 
+	 * Destroys Joint
+	 * @param j
+	 */
 	public void destroyJoint(Joint j) {
 		this.world.destroyJoint(j);
 	}
 	
 	/*------- Physics Animation -------*/
-	
-	// Advance Simulation step
+
+	/**
+	 * Advance Simulation step
+	 */
 	public void step() {
 		float timeStep = 1.0f / 60f;
 		this.world.step(timeStep, 6, 2);

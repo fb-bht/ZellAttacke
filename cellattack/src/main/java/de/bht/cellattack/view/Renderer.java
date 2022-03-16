@@ -1,7 +1,5 @@
 package de.bht.cellattack.view;
 
-import java.util.ArrayList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -14,6 +12,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+
 import de.bht.cellattack.application.Main;
 import de.bht.cellattack.model.GameObject;
 import de.bht.cellattack.model.Rect;
@@ -30,49 +29,78 @@ public class Renderer {
 	Canvas canvas;
 	GraphicsContext context;
 
-	// ArrayList<GameObject> viewList = new ArrayList<GameObject>();
-	ObservableList<GameObject> viewList = FXCollections.observableArrayList(); //TODO
+	ObservableList<GameObject> viewList = FXCollections.observableArrayList(); 
 
 	Label scoreTextPlayer1 = new Label("0");
 	Label scoreTextPlayer2 = new Label("0");
+
 	//--------------------Start Dev
 	Button gameOver = new Button("Game Over");
 
+	
+	/** 
+	 * @return Button
+	 */
 	public Button getGameOver() {
 		return gameOver;
 	}
+	//---------------------End Dev
 
 	ProgressIndicator countDownPlayer1 = new ProgressIndicator();
 	ProgressIndicator countDownPlayer2 = new ProgressIndicator();
 	
+	/**
+	 * Constructor
+	 */
+	public Renderer() {
+		pane = createView();
+	}
 	
-
+	/** 
+	 * @return ProgressIndicator
+	 */
 	public ProgressIndicator getCountDownPlayer1() {
 		return countDownPlayer1;
 	}
 
+	
+	/** 
+	 * @return ProgressIndicator
+	 */
 	public ProgressIndicator getCountDownPlayer2() {
 		return countDownPlayer2;
 	}
 
-	//---------------------End Dev
-	public Renderer() {
-		pane = createView();
-	}
-
+	
+	/** 
+	 * @return Parent
+	 */
 	public Parent getViewPane() {
 		return pane;
 	}
 	
+	
+	/** 
+	 * @return Label
+	 */
 	public Label getScoreTextPlayer1() {
 		return scoreTextPlayer1;
 	}
 	
+	
+	/** 
+	 * @return Label
+	 */
 	public Label getScoreTextPlayer2() {
 		return scoreTextPlayer2;
 	}
+		
 	
-	
+	/** 
+	 * creates the gamefield view
+	 * 
+	 * @return Parent
+	 */
 	private Parent createView() {
 		AnchorPane aPane = new AnchorPane();
 		canvas = new Canvas(Main.WIDTH, Main.HEIGHT);
@@ -105,52 +133,21 @@ public class Renderer {
 	}
 
 
-	/*
+	/**
 	 * returns the list of gameObjects that are stored in the View
 	 * 
 	 * @return local list of gameObjects
 	 */
-	public ObservableList<GameObject> getViewList() { //TODO
-	// public ArrayList<GameObject> getViewList() { //TODO
+	public ObservableList<GameObject> getViewList() { 
 		return viewList;
 	}
 
 
-	/*
+	/**
 	 * Render Method for Objects if they are in the scene or remove them otherwise
 	 */
 	public void render() {
 		context.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
-		// for (int i = 0; i < sprites.size(); i++) {
-		// 	if (sprites.get(i).getPos().x < 0 - sprites.get(i).getRadius() * 2
-		// 			|| sprites.get(i).getPos().x > canvas.getWidth()
-		// 			|| sprites.get(i).getPos().y < 0 - sprites.get(i).getRadius() * 2
-		// 			|| sprites.get(i).getPos().y > canvas.getHeight()) {
-		// 		sprites.get(i).removeSprite(); // removes Box2D Body
-		// 		sprites.remove(i); // remove from ArrayList
-		// 	} else {
-		// 		context.drawImage(sprites.get(i).getImage(), sprites.get(i).getPos().x, sprites.get(i).getPos().y,
-		// 				sprites.get(i).getRadius(), sprites.get(i).getRadius());
-		// 	}
-		// }
-		// for (int i = 0; i < viewList.size(); i++) {
-		// 	context.drawImage(viewList.get(i).getImage(), viewList.get(i).getPos().x, viewList.get(i).getPos().y,
-		// 			viewList.get(i).getRadius(), viewList.get(i).getRadius());
-		// }
-			/////////////////////////////////////////////
-		// for (int i = 0; i < viewList.size(); i++) {
-		// 	if (viewList.get(i).getEntityType() == ("neutral")) {
-		// 		Sprite obj = (Sprite) viewList.get(i);
-		// 		if (obj.getPos().x < 0 - obj.getRadius() * 2
-		// 				|| obj.getPos().x > 400 //Main.WIDTH
-		// 				|| obj.getPos().y < 0 - obj.getRadius() * 2
-		// 				|| obj.getPos().y > Main.HEIGHT) {
-		// 			obj.removeSprite(); // removes Box2D Body
-		// 			viewList.remove(obj); // removes object from View
-		// 		}
-		// 	}
-		// }
 		
 		for (int i = 0; i < viewList.size(); i++) {
 			if(viewList.get(i) instanceof Rect) {
@@ -158,7 +155,7 @@ public class Renderer {
 				context.fillRect( wall.getPos().x, wall.getPos().y, wall.getWidth(), wall.getHeight());
 			}
 			
-			if(viewList.get(i) instanceof Sprite ){//&& viewList.get(i).getEntityType()!="killed") {
+			if(viewList.get(i) instanceof Sprite && viewList.get(i).getEntityType()!="killed") {
 				Sprite sprite = (Sprite) viewList.get(i);
 				context.drawImage(sprite.getImage(), sprite.getPos().x, sprite.getPos().y,
 						sprite.getRadius(), sprite.getRadius());

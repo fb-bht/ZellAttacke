@@ -39,13 +39,20 @@ public class LoginController {
     Window window;
     User playerRef;
 
+    /**
+     * Constructor
+     * 
+     * @param x
+     */
     public LoginController(User x) {
         playerRef = x;
     }
 
-
-    /*
+    
+    /** 
      * Method login() makes a HTTP-request to login a user
+     * 
+     * @throws Exception
      */
     @FXML
     private void login() throws Exception {
@@ -88,8 +95,11 @@ public class LoginController {
 
     }
 
-    /*
+    
+    /** 
      * method isValidated() checks if the user input ist valid
+     * 
+     * @return boolean
      */
     private boolean isValidated() {
 
@@ -113,7 +123,6 @@ public class LoginController {
         } else if (password.getText().length() < 5 || password.getText().length() > 20) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
                     "Passwort muss zwischen 5 und 20 Zeichen lang sein.");
-
             password.requestFocus();
         } else {
             return true;
@@ -121,8 +130,11 @@ public class LoginController {
         return false;
     }
 
-    /*
+    
+    /** 
      * Method changes the displayed form from login to register
+     * 
+     * @throws IOException
      */
     @FXML
     private void showRegisterStage() throws IOException {
@@ -137,6 +149,9 @@ public class LoginController {
 
     /**
      * Method to change view back to caller
+     * 
+     * @param e
+     * @throws IOException
      */
     @FXML
     private void back(ActionEvent e) throws IOException {

@@ -26,14 +26,26 @@ public abstract class GameLoopTimer extends AnimationTimer {
     boolean playScheduled;
     boolean restartScheduled;
 
+    
+    /** 
+     * @return boolean
+     */
     public boolean isPaused() {
         return isPaused;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public boolean isActive() {
         return isActive;
     }
 
+    
+    /** 
+     * @return DoubleProperty
+     */
     public DoubleProperty animationDurationProperty() {
         return animationDuration;
     }
@@ -68,6 +80,10 @@ public abstract class GameLoopTimer extends AnimationTimer {
         animationDuration.set(0);
     }
 
+    
+    /** 
+     * @param now
+     */
     @Override
     public void handle(long now) {
         if (pauseScheduled) {

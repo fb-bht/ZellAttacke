@@ -7,8 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
+ * Cell-Attack: Game Application
+ * 
  * @author Stefanie S.
- *
  */
 public class Start extends Application {
 
@@ -27,6 +28,7 @@ public class Start extends Application {
 	}
 	
 	/**
+	 * Entry point for the application
 	 * @param args
 	 */
 	public static void main(String[] args) {

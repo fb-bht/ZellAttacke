@@ -24,6 +24,11 @@ public class Box2DContactListener implements ContactListener {
 		this.modelRef = modelRef;
 	}
 
+	
+	/** 
+	 * handles behavior after collision
+	 * @param contact
+	 */
 	@Override
 	public void beginContact(Contact contact) {
 		Fixture f1 = contact.getFixtureA();
@@ -53,14 +58,28 @@ public class Box2DContactListener implements ContactListener {
 		}
 	}
 
+	
+	/** 
+	 * @param arg0
+	 */
 	@Override
 	public void endContact(Contact arg0) {
 	}
 
+	
+	/** 
+	 * @param arg0
+	 * @param arg1
+	 */
 	@Override
 	public void postSolve(Contact arg0, ContactImpulse arg1) {
 	}
 
+	
+	/** 
+	 * @param arg0
+	 * @param arg1
+	 */
 	@Override
 	public void preSolve(Contact arg0, Manifold arg1) {
 	}

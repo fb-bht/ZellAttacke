@@ -19,6 +19,14 @@ import unirest.shaded.com.google.gson.Gson;
  */
 public class RestApi {
 
+    
+    /** 
+     * register a new user
+     * 
+     * @param email
+     * @param password
+     * @return ApiResponse
+     */
     public static ApiResponse sentNewUserToApi(String email, String password) {
         try {
             HttpResponse<JsonNode> response = Unirest
@@ -39,6 +47,14 @@ public class RestApi {
     }
 
 
+    
+    /** 
+     * get JWT Token after Login
+     * 
+     * @param email
+     * @param password
+     * @return UserLoginResponse
+     */
     public static UserLoginResponse getLoginToken(String email, String password) {
         try {
             HttpResponse<JsonNode> response = Unirest.post(MessageFormat.format("{0}/signin", Main.SERVER_URL))
@@ -58,6 +74,13 @@ public class RestApi {
     }
 
 
+    
+    /** 
+     * get user Object after authorization
+     * 
+     * @param token
+     * @return UserApiResponse
+     */
     public static UserApiResponse getUserFromAPI(String token) {
         try {
             HttpResponse<JsonNode> response = Unirest.get(MessageFormat.format("{0}/user", Main.SERVER_URL))
@@ -73,6 +96,14 @@ public class RestApi {
     }
 
 
+    
+    /** 
+     * sava score in database
+     * 
+     * @param score
+     * @param token
+     * @return String
+     */
     public static String sentScoreToAPI(int score, String token) {
         try {
             HttpResponse<JsonNode> response = Unirest.post(MessageFormat.format("{0}/score", Main.SERVER_URL))
@@ -92,6 +123,12 @@ public class RestApi {
     }
     
 
+    
+    /** 
+     * get Highscore from database
+     * 
+     * @return HighscoreApiResponse
+     */
     public static HighscoreApiResponse getHighscoreFormAPI() {
         try {
             HttpResponse<JsonNode> response = Unirest.get(MessageFormat.format("{0}/highscore", Main.SERVER_URL))

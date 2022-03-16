@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,8 +34,10 @@ public class DashboardFXController implements Initializable {
 
     @FXML
     private TableView<Score> table;
+
     @FXML
     private TableColumn<Score, Integer> columnOne;
+
     @FXML
     private TableColumn<Score, String> columnTwo;
 
@@ -46,6 +47,13 @@ public class DashboardFXController implements Initializable {
         this.playerRef = player;
     }
 
+    
+    /** 
+     * Initialize Dashboard
+     * 
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         UserApiResponse userResponse = null;
@@ -64,10 +72,12 @@ public class DashboardFXController implements Initializable {
             table.getItems().add(tmpscore);
         }
     }
-
-
-    /*
+    
+    /** 
      * Method changes the display from dashboard back to AvatarSelection
+     * 
+     * @param e
+     * @throws Exception
      */
     @FXML
     protected void backToAvatarFX(ActionEvent e) throws Exception {

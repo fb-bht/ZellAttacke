@@ -34,19 +34,28 @@ public class GameController {
 	private GameLoopTimer timer;
 	
 	private ExecutorService threadPool = Executors.newFixedThreadPool(2);
-	private DoubleProperty progressPlayer1 = new SimpleDoubleProperty(1); //TODO
+	private DoubleProperty progressPlayer1 = new SimpleDoubleProperty(1);
 	private Task<Void> taskCountDownPlayer1;
-	private DoubleProperty progressPlayer2 = new SimpleDoubleProperty(1); //TODO
+	private DoubleProperty progressPlayer2 = new SimpleDoubleProperty(1);
 	private Task<Void> taskCountDownPlayer2;
 
 
+	/**
+	 * Constructor
+	 * 
+	 * @param view
+	 */
 	public GameController(Renderer view) {
 		this.view = view;
 		setView(view);
 		play();
 	}
-	
 
+	/** 
+	 * Binding Model & View
+	 * 
+	 * @param view
+	 */
 	private void setView(Renderer view) {
 
 		// Creating a instance of the Model
@@ -56,7 +65,7 @@ public class GameController {
 		Bindings.bindContent(view.getViewList(), model.getGameObjects());
 		view.getScoreTextPlayer1().textProperty().bind(model.getScorePlayer1Property().asString());
 		view.getScoreTextPlayer2().textProperty().bind(model.getScorePlayer2Property().asString());
-		view.getGameOver().setOnAction(event -> { //TODO
+		view.getGameOver().setOnAction(event -> { 
 			timer.stop();
 			// write winning score to database
 			saveWinningScore(Arena.refPlayer1);
@@ -65,20 +74,16 @@ public class GameController {
 			closeWindow();	
 		});
 
-
-		
-		
-		view.getCountDownPlayer1().progressProperty().bind(progressPlayer1); //TODO
-		view.getCountDownPlayer2().progressProperty().bind(progressPlayer2); //TODO
+		view.getCountDownPlayer1().progressProperty().bind(progressPlayer1);
+		view.getCountDownPlayer2().progressProperty().bind(progressPlayer2);
 	}
 	
 
-
+	/**
+	 * Starts Game with Game-Loop
+	 */
 	private void play() {
-
-		
 		model.placeEntities();
-//////////////////////////////////
 		timer = new GameLoopTimer() {
 			@Override
 			public void tick(float secondsSinceLastFrame) {
@@ -92,35 +97,13 @@ public class GameController {
 					view.getGameOver().setVisible(true);
 				}
 			}
-
 		};
 		timer.start();
-
-/////////////////////////////////
-		// // Game Loop
-		// new AnimationTimer() {
-		// 	public void handle(long currentNanoTime) {
-		// 		if(model.getGameState()) {  //TODO
-		// 			view.render();
-		// 			Arena.box2d.step();
-		// 			model.update();
-		// 			handleInput();
-		// 		} else {
-		// 			// show gameOver Label in center of screen
-		// 			view.getGameOver().setVisible(true);
-		// 			// try {
-		// 			// 	TimeUnit.SECONDS.sleep(2);
-		// 			// } catch (InterruptedException ie) {
-		// 			// 	Thread.currentThread().interrupt();
-		// 			// }
-		// 			this.stop();
-					
-		// 		}
-		// 	}
-		// }.start();
 	}
 
-	// handling user interaction
+	/**
+	 * Handling user interaction
+	 */  
 	private void handleInput() {
 		view.getViewPane().getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
@@ -137,7 +120,6 @@ public class GameController {
 					if (event.getCode() == KeyCode.V && !Arena.refPlayer2.isBlocked()) {
 						System.out.println("VKey");
 						model.orbiterP2.removeJoint();
-						// model.countDownThreadExecutorPlayer2();
 						taskCountDownPlayer2 = startCountDown(Arena.refPlayer2);
 						progressPlayer2.bind(taskCountDownPlayer2.progressProperty());
 						threadPool.execute(taskCountDownPlayer2);
@@ -148,6 +130,13 @@ public class GameController {
 		});
 	}
 
+	
+	/** 
+	 * Creates Delay for next Player action
+	 * 
+	 * @param player
+	 * @return Task<Void>
+	 */
 	private Task<Void> startCountDown(User player) {
 		return new Task<Void>() {
 			@Override
@@ -165,11 +154,18 @@ public class GameController {
 		};		
 	}
 
-	public void closeWindow() {
+
+	private void closeWindow() {
 			Stage stagecurrent = (Stage) view.getGameOver().getScene().getWindow();
 			stagecurrent.close();
 	}
 
+	
+	/** 
+	 * Saves scores in Database
+	 * 
+	 * @param playerRef
+	 */
 	private void saveWinningScore(User playerRef) {
 		String userResponse = RestApi.sentScoreToAPI(playerRef.getGameScore(), playerRef.getToken());
         if (userResponse == null) {

@@ -11,6 +11,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+/**
+ * GameRulesFXController
+ *  
+ * @author Stefanie S.
+ */
 public class GameRulesFXController {
 
 	private Node node;
@@ -22,6 +27,12 @@ public class GameRulesFXController {
 	@FXML
 	private Button btnOK;
 	
+	
+	/** 
+	 * Change View to Menue
+	 * 
+	 * @param e
+	 */
 	@FXML
 	protected void goBackToMenue(ActionEvent e) {
 		try {

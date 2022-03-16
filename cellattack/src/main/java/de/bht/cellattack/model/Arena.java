@@ -1,18 +1,14 @@
 package de.bht.cellattack.model;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import org.jbox2d.dynamics.BodyType;
 
 import de.bht.cellattack.model.dto.User;
 import de.bht.cellattack.application.Main;
 import de.bht.cellattack.box2D.Box2dUtils;
+
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 
 /**
@@ -27,15 +23,10 @@ public class Arena {
 	private boolean gameState;
 	private SimpleIntegerProperty scorePlayer1 = new SimpleIntegerProperty();
 	private SimpleIntegerProperty scorePlayer2 = new SimpleIntegerProperty();
-	// private ExecutorService singleThreadPoolPlayer1 = Executors.newSingleThreadExecutor();
-	// private ExecutorService singleThreadPoolPlayer2 = Executors.newSingleThreadExecutor();
-
 
 	private Sprite player1;
 	private Sprite player2;
 	private SimpleIntegerProperty winningScore = new SimpleIntegerProperty(); //TODO
-
-
 
 	public Sprite orbiterP1;
 	public Sprite orbiterP2;
@@ -52,30 +43,58 @@ public class Arena {
 		gameState = true;
 	}
 
+	
+	/** 
+	 * @return SimpleIntegerProperty
+	 */
 	public SimpleIntegerProperty getScorePlayer1Property() {
 		return scorePlayer1;
 	}
 
+	
+	/** 
+	 * @return SimpleIntegerProperty
+	 */
 	public SimpleIntegerProperty getScorePlayer2Property() {
 		return scorePlayer2;
 	}
 
+	
+	/** 
+	 * @return ObservableList<GameObject>
+	 */
 	public ObservableList<GameObject> getGameObjects() {
 		return gameObjects;
 	}
 
+	
+	/** 
+	 * @return Box2dUtils
+	 */
 	public Box2dUtils getBox2d() {
 		return box2d;
 	}
 
+	
+	/** 
+	 * @param gameState
+	 */
 	public void setGameState(boolean gameState) {
 		this.gameState = gameState;
 	}
 
+	
+	/** 
+	 * @return boolean
+	 */
 	public boolean getGameState() {
 		return gameState;
 	}
 
+	
+	/** 
+	 * @return SimpleIntegerProperty
+	 */
 	public SimpleIntegerProperty getWinningScore() {
 		return winningScore;
 	}
@@ -130,7 +149,7 @@ public class Arena {
 				numberOfNeutrals++;
 				Sprite obj = (Sprite) object;
 				if (obj.getPos().x < 0 - obj.getRadius() * 2
-						|| obj.getPos().x > 400 //Main.WIDTH
+						|| obj.getPos().x > Main.WIDTH
 						|| obj.getPos().y < 0 - obj.getRadius() * 2
 						|| obj.getPos().y > Main.HEIGHT) {
 					obj.removeBody(); // removes Box2D Body
@@ -138,11 +157,14 @@ public class Arena {
 				}
 			}
 		}
-		if(numberOfNeutrals < 47) {
+		if(numberOfNeutrals < 1) {
 			gameOver();
 		}
 	}
 
+	/**
+	 * handles game over state
+	 */
 	private void gameOver() {
 		System.out.println("GameOver");
 		// freeze view
@@ -150,21 +172,23 @@ public class Arena {
 		// assign gameScore to player
 		refPlayer1.setGameScore(getScorePlayer1Property().get());
 		refPlayer2.setGameScore(getScorePlayer2Property().get());
-		// stop orbiter threadPool
-		// singleThreadPoolPlayer1.shutdown();
-		// singleThreadPoolPlayer2.shutdown();
 		// remove all box2d objects
 		for(GameObject object: gameObjects) {
 			object.removeBody();
 		}
 	}
 	
-
+	/**
+	 * sets score for player 1 after scoring
+	 */
 	public void np1Collision() {
 		scorePlayer1.set(scorePlayer1.get() + 1);
 		System.out.println("np1Collision" + scorePlayer1);
 	}
 
+	/**
+	 * sets score for player 2 after scoring
+	 */
 	public void np2Collision() {
 		scorePlayer2.set(scorePlayer2.get() + 1);
 		System.out.println("np2Collision" + scorePlayer2);
@@ -173,37 +197,5 @@ public class Arena {
 	public void ppCollision() {
 		System.out.println("ppCollision");
 	}
-
-	/*
-	 * starts a Delay for Player1
-	 */
-	// public void countDownThreadExecutorPlayer1() {
-		// singleThreadPoolPlayer1.execute(new CountDown(refPlayer1));
-		
-
-		// AtomicInteger counterCountDownPlayer1 = new AtomicInteger();
-		// singleThreadPoolPlayer1.submit(() -> {
-		// 	refPlayer1.setBlocked(true);
-		// 	for (int i = 10; i > 0; i = i - 1) {
-		// 		countDownIntegerPropertyPlayer1.set(i);
-		// 		try {
-		// 			Thread.sleep(300);
-		// 		} catch (InterruptedException e) {
-		// 			e.printStackTrace();
-		// 		}
-		// 	}
-		// 	// countDownIntegerPropertyPlayer1 = (SimpleIntegerProperty) counterCountDownPlayer1;
-		// 	refPlayer1.setBlocked(false);
-		// });
-	// }
-
-	/*
-	 * starts a Delay for Player2
-	 */
-	// public void countDownThreadExecutorPlayer2() {
-	// 	singleThreadPoolPlayer2.execute(new CountDown(refPlayer2));
-	// }
-	
-
 	
 }

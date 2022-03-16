@@ -41,17 +41,27 @@ public class RegisterController implements Initializable {
 
     Window window;
 
+    
+    /** 
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
     }
 
+    /**
+     * Constructor
+     */
     public RegisterController() {
     }
 
-
-    /*
+    
+    /** 
      * Method register() makes a HTTP-request to register a new user
+     * 
+     * @throws Exception
      */
     @FXML
     private void register() throws Exception {
@@ -86,8 +96,11 @@ public class RegisterController implements Initializable {
     }
 
 
-    /*
+    
+    /** 
      * method isValidated() checks if the user input ist valid 
+     * 
+     * @return boolean
      */
     private boolean isValidated() {
 
@@ -118,9 +131,11 @@ public class RegisterController implements Initializable {
         return false;
     }
 
-
-    /*
+    
+    /** 
      * Method clears form input
+     * 
+     * @return boolean
      */
     private boolean clearForm() {
         email.clear();
@@ -128,9 +143,11 @@ public class RegisterController implements Initializable {
         return true;
     }
 
-
-    /*
+    
+    /** 
      * Method changes the displayed form from register to login
+     * 
+     * @throws IOException
      */
     @FXML
     private void showLoginStage() throws IOException {

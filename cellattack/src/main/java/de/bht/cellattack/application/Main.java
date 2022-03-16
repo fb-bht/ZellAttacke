@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+
 import de.bht.cellattack.controller.GameController;
 import de.bht.cellattack.view.Renderer;
 
@@ -21,6 +22,13 @@ public class Main extends Application {
 	public final static String SERVER_URL = "http://localhost:8080";
 
 
+	
+	/** 
+	 * Starts the GameField
+	 * 
+	 * @param stage
+	 * @throws IOException
+	 */
 	@Override
 	public void start(Stage stage) throws IOException {
 
@@ -36,6 +44,11 @@ public class Main extends Application {
 		stage.show();
 	}
 
+	
+	/** 
+	 * Entry Point for Gamefield - only used for development and testing
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

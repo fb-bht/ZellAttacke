@@ -18,6 +18,14 @@ public class Rect implements GameObject {
 	float height;
 	String entityType;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param x
+	 * @param y
+	 * @param w
+	 * @param h
+	 */
 	public Rect(float x, float y, float w, float h) {
 		this.width = w;
 		this.height = h;
@@ -26,7 +34,14 @@ public class Rect implements GameObject {
 		body.setUserData(this);
 	}
 	
-	// creates a box2d Object
+	
+	/** 
+	 * creates a box2d Object
+	 * 
+	 * @param center
+	 * @param w
+	 * @param h
+	 */
 	private void makeBody(Vec2 center, float w, float h) {
 		// Define the shape
 		PolygonShape ps = new PolygonShape();
@@ -44,10 +59,11 @@ public class Rect implements GameObject {
 		body.createFixture(ps,1);
 	}
 	
-	/*
+	
+	/** 
 	 *  Returns the Position for Rendering (left upper corner)
 	 *  
-	 *  @return Position of the GameObject
+	 *  @return Vec2 Position of the GameObject
 	 */
 	@Override
 	public Vec2 getPos() {
@@ -57,45 +73,49 @@ public class Rect implements GameObject {
 		return (new Vec2(xPosRect, yPosRect));
 	}
 	
-	/*
+	
+	/** 
 	 * set the entity type of the GameObject
 	 * 
-	 * @param entity Type
+	 * @param et entity Type
 	 */
 	@Override
 	public void setEntityType(String et) {
 		this.entityType = et;
 	}
 	
-	/* 
-	* returns the entity type of the GameObject
+	
+	/** 
+	 * returns the entity type of the GameObject
 	 * 
-	 * @return entity Type
+	 * @return String entity Type
 	 */
 	@Override
 	public String getEntityType() {
 		return this.entityType;
 	}
 
-	/*
+	
+	/** 
 	 * getter for the width of the gameObject
 	 * 
-	 * @return width of the gameObject
+	 * @return float width of the gameObject
 	 */
 	public float getWidth() {
 		return width;
 	}
 
-	/*
+	
+	/** 
 	 * getter for the height of the gameObject
 	 * 
-	 * @return height of the gameObject
+	 * @return float height of the gameObject
 	 */
 	public float getHeight() {
 		return height;
 	}
 
-	/*
+	/**
 	 * Removes a Sprite image
 	 */
 	@Override

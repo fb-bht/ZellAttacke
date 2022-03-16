@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import de.bht.cellattack.model.dto.HighscoreApiResponse;
 import de.bht.cellattack.model.dto.RestApi;
 import de.bht.cellattack.model.dto.Score;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,6 +39,12 @@ public class ScoreFXController implements Initializable {
 	@FXML private TableColumn<Score, String> columnTwo;
 	
 	
+	/** 
+	 * Initilize Highscore View
+	 * 
+	 * @param location
+	 * @param resources
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		HighscoreApiResponse response = RestApi.getHighscoreFormAPI();
@@ -50,6 +57,11 @@ public class ScoreFXController implements Initializable {
 	}
 	
 	
+	/**
+	 * Change view to Menue
+	 * 
+	 * @param e
+	 */
 	@FXML
 	protected void goBackToMenue(ActionEvent e) {
 		try {
@@ -63,4 +75,5 @@ public class ScoreFXController implements Initializable {
 	        e1.printStackTrace();
 	    }         
 	}
+	
 }

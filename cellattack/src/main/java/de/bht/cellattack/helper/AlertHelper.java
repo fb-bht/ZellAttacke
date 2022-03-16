@@ -6,10 +6,20 @@ import javafx.scene.control.Alert;
 import javafx.stage.Window;
 import javafx.util.Duration;
 
+/**
+ * AlertHelper Class
+ */
 public class AlertHelper {
 
     public static boolean result = false;
 
+    
+    /** 
+     * @param alertType
+     * @param owner
+     * @param title
+     * @param message
+     */
     public static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
         if (alertType.name() == null ? alertType.INFORMATION.name() == null : alertType.name().equals(alertType.INFORMATION.name())) {
             Notifications.create()

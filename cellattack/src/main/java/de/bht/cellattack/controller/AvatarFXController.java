@@ -45,6 +45,12 @@ public class AvatarFXController implements Initializable {
 	@FXML private Label header;
 
 	
+	
+	/** 
+	 * Initialzes the View
+	 * @param location
+	 * @param resources
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("initilize Method called");
@@ -81,6 +87,15 @@ public class AvatarFXController implements Initializable {
 		loadView(e, Arena.refPlayer2, "/fxml/DashboardView.fxml");
 	}
 	
+	
+	/** 
+	 * View-Loader
+	 * 
+	 * @param e
+	 * @param player
+	 * @param path
+	 * @throws IOException
+	 */
 	private void loadView(ActionEvent e, User player, String path) throws IOException {
 		Node node = (Node) e.getSource();
 		stage = (Stage) node.getScene().getWindow();
@@ -101,6 +116,12 @@ public class AvatarFXController implements Initializable {
 		scene.setRoot(root);
 	}
 
+	/** 
+	 * Button Action
+	 * 
+	 * @param e
+	 * @throws IOException
+	 */
 	@FXML protected void logoutPlayer1(ActionEvent e) throws IOException {
 		Arena.refPlayer1.setToken(null);
 		// show info message
@@ -118,6 +139,12 @@ public class AvatarFXController implements Initializable {
 		});	
 	}
 
+	/** 
+	 * Button Action
+	 * 
+	 * @param e
+	 * @throws IOException
+	 */
 	@FXML protected void logoutPlayer2(ActionEvent e) throws IOException {
 		Arena.refPlayer2.setToken(null); 
 		// show info message
@@ -135,12 +162,24 @@ public class AvatarFXController implements Initializable {
 		});	
 	}
 
+	/** 
+	 * Button Action
+	 * 
+	 * @param e
+	 * @throws IOException
+	 */
 	@FXML protected void playGame(ActionEvent e) throws IOException {
 		Main game = new Main();
 		Stage stage = new Stage();
 		game.start(stage);
 	}
-
+	
+	/** 
+	 * Button Action
+	 * 
+	 * @param e
+	 * @throws IOException
+	 */
 	@FXML protected void backToMenueFX( ActionEvent e) throws IOException {
 		Node node = (Node) e.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();

@@ -11,6 +11,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+/**
+ * StartFXController Class 
+ * 
+ * @author Stefanie S.
+ */
 public class StartFXController {
 
 	private Node node;
@@ -22,7 +27,14 @@ public class StartFXController {
     @FXML
     private Button btnPlay;
 
-    @FXML
+    
+	/**
+	 * Load view
+	 * 
+	 * @param e
+	 * @throws IOException
+	 */
+	@FXML
     void openMenue(ActionEvent e) throws IOException {
     	node = (Node) e.getSource();
 		stage = (Stage) node.getScene().getWindow();

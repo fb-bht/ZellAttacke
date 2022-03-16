@@ -25,12 +25,29 @@ public class Sprite implements GameObject {
 	Image image;
 	float radius;
 	String entityType;
-	
+
+	/**
+	 * Constructor
+	 *
+	 * @param image
+	 * @param x
+	 * @param y
+	 * @param r
+	 */
 	public Sprite (Image image, float x, float y, float r) {
 		this(image, x, y, r, BodyType.DYNAMIC);
 
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param image
+	 * @param x
+	 * @param y
+	 * @param r
+	 * @param bt
+	 */
 	public Sprite (Image image, float x, float y, float r, BodyType bt) {
 		this.image = image;
 		this.radius = r;
@@ -38,7 +55,14 @@ public class Sprite implements GameObject {
 		body.setUserData(this);
 	}
 	
-	// creates a box2d Object
+	
+	/** 
+	 * Creates a box2d Object
+	 * 
+	 * @param center
+	 * @param r
+	 * @param bt
+	 */
 	private void makeBody(Vec2 center, float r, BodyType bt) {
 		// Define the Shape
 		CircleShape cs = new CircleShape();
@@ -62,39 +86,43 @@ public class Sprite implements GameObject {
 		this.body.createFixture(fd);		
 	}
 	
-	/*
+	
+	/** 
 	 * set the entity type of the GameObject
 	 * 
-	 * @param entity Type
+	 * @param et entity Type
 	 */
 	@Override
 	public void setEntityType(String et) {
 		this.entityType = et;
 	}
 	
-	/* 
+	
+	/** 
 	 * returns the entity type of the GameObject
 	 * 
-	 * @return entity Type
+	 * @return String entity Type
 	 */
 	@Override
 	public String getEntityType() {
 		return this.entityType;
 	}
 	
-	/* 
+	
+	/** 
 	 * returns the radius of the GameObject
 	 * 
-	 * @return radius
+	 * @return float radius
 	 */
 	public float getRadius() {
 		return radius;
 	}
 
-	/*
+	
+	/**
 	 * set the radius of the GameObject
 	 * 
-	 * @param radius
+	 * @param coefficient
 	 */
 	public void setRadius(float coefficient) {
 		this.radius = this.radius * coefficient;
@@ -102,19 +130,21 @@ public class Sprite implements GameObject {
 		shape.setRadius(shape.getRadius() * coefficient);		
 	}
 
-	/*
+	
+	/** 
 	 *  returns Sprite Image
 	 *  
-	 *  @return the Sprite image
+	 *  @return Image of the Sprite image
 	 */
 	public Image getImage() {
 		return this.image;
 	}
 		
-	/*
+	
+	/** 
 	 *  returns the Position for Rendering (left upper corner)
 	 *  
-	 *  @return Position of the GameObject
+	 *  @return Vec2 Position of the GameObject
 	 */
 	@Override
 	public Vec2 getPos() {
@@ -124,7 +154,8 @@ public class Sprite implements GameObject {
 		return (new Vec2(xPosRect, yPosRect));
 	}
 	
-	/*
+	
+	/** 
 	 *  Creates a Joint between this Object and a provided anchor
 	 *  
 	 *  @param anchor to attache the joint to
