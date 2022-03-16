@@ -5,6 +5,7 @@ import de.bht.cellattack.helper.AlertHelper;
 import de.bht.cellattack.helper.Validator;
 import de.bht.cellattack.model.dto.ApiResponse;
 import de.bht.cellattack.model.dto.RestApi;
+import de.bht.cellattack.model.dto.User;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,6 +41,7 @@ public class RegisterController implements Initializable {
     private Button registerButton;
 
     Window window;
+    User playerRef;
 
     
     /** 
@@ -55,6 +57,10 @@ public class RegisterController implements Initializable {
      * Constructor
      */
     public RegisterController() {
+    }
+
+    public RegisterController(User user) { //TODO
+        playerRef = user;
     }
 
     
@@ -154,8 +160,12 @@ public class RegisterController implements Initializable {
         Stage stage = (Stage) registerButton.getScene().getWindow();
         stage.close();
 
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginView.fxml"));
-
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/LoginView.fxml"));
+        LoginController ctrl = new LoginController(playerRef);
+        fxmlLoader.setController(ctrl);
+        Parent root = fxmlLoader.load();
+        
+        // Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginView.fxml")); //TODO
         Scene scene = new Scene(root);
 
         stage.setScene(scene);

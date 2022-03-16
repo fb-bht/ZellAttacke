@@ -62,10 +62,11 @@ public class LoginController {
         if (this.isValidated()) {
 
             UserLoginResponse loginResponse = RestApi.getLoginToken(email.getText(), password.getText());
-            if (loginResponse == null) {
+            if (loginResponse.getJwt() == null) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, window, "Error",
                         "Email / Passwort falsch!");
-                throw new Exception("Email / Passwort falsch!");
+                password.requestFocus();
+                return;
             }
             System.out.println("Login erfolgreich");
             AlertHelper.showAlert(Alert.AlertType.INFORMATION, window, "Information",
@@ -140,7 +141,12 @@ public class LoginController {
     private void showRegisterStage() throws IOException {
         Stage stage = (Stage) loginButton.getScene().getWindow();
         stage.close();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/RegisterView.fxml"));
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/RegisterView.fxml"));
+        RegisterController ctrl = new RegisterController(playerRef);
+        fxmlLoader.setController(ctrl);
+        Parent root = fxmlLoader.load();
+
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("User Registration");

@@ -3,6 +3,7 @@ package de.bht.cellattack.helper;
 import org.controlsfx.control.Notifications;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Window;
 import javafx.util.Duration;
 
@@ -21,7 +22,7 @@ public class AlertHelper {
      * @param message
      */
     public static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
-        if (alertType.name() == null ? alertType.INFORMATION.name() == null : alertType.name().equals(alertType.INFORMATION.name())) {
+        if (alertType.name() == null ? AlertType.INFORMATION.name() == null : alertType.name().equals(AlertType.INFORMATION.name())) {
             Notifications.create()
                     .darkStyle()
                     .title(title)

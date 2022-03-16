@@ -34,7 +34,7 @@ public class AvatarFXController implements Initializable {
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
-	
+
 	@FXML private Button btnLoginPlayer1;
 	@FXML private Button btnLoginPlayer2;
 	@FXML private Button btnLogoutPlayer1;
@@ -44,7 +44,6 @@ public class AvatarFXController implements Initializable {
 	@FXML private Button btnPlayGame;
 	@FXML private Label header;
 
-	
 	
 	/** 
 	 * Initialzes the View
