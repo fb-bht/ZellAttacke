@@ -11,4 +11,9 @@ bin/
 
 ### VSCode ###
 .vscode/
-target/
+
+### JavaDoc allow ###
+target/classes/
+target/javadoc-bundle-options/
+target/test-classes/
+maven-javadoc-plugin-stale-data.txt

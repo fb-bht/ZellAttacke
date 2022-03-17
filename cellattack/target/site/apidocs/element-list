@@ -1,0 +1,10 @@
+module:cellattack
+de.bht.cellattack
+de.bht.cellattack.animation
+de.bht.cellattack.application
+de.bht.cellattack.box2D
+de.bht.cellattack.controller
+de.bht.cellattack.helper
+de.bht.cellattack.model
+de.bht.cellattack.model.dto
+de.bht.cellattack.view
